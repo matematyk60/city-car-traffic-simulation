@@ -1,5 +1,5 @@
 
-from simulation.road_object import RoadObject
+import simulation.road_object as road_object_
 from typing import List
 
 
@@ -27,12 +27,12 @@ class RoadWay:
     def __init__(self, clock_wise: bool):
         self.clock_wise = clock_wise
         self.lanes = []
-        self.objects: List[RoadObject] = []
+        self.objects: List[road_object_.RoadObject] = []
 
     def add_road_lane(self, lane: RoadLane):
         self.lanes.append(lane)
 
-    def add_object(self, road_object: RoadObject):
+    def add_object(self, road_object):
         self.objects.append(road_object)
 
     def make_a_move(self):
