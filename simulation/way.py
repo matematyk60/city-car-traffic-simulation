@@ -3,18 +3,35 @@ import geopy.distance
 from simulation.node import Node, TraversableNode
 from simulation.range import Range
 from typing import List
+from collections import namedtuple
+
+from dataclasses import dataclass
+
+@dataclass
+class PositionOccupation:
+    position: int
+    occupied: bool
+
+
+@dataclass
+class LaneOccupation:
+    lane: int
+    occupations: List[PositionOccupation]
 
 
 class Way:
-    def __init__(self, way_id: int, begin_node: TraversableNode, end_node: TraversableNode,
+    def __init__(self, way_id: int, begin_node: TraversableNode, end_node: TraversableNode, lanes: int,
                  intermediate_nodes: List[Node]):
         self.way_id = way_id
         self.begin_node = begin_node
         self.end_node = end_node
         self.intermediate_nodes = intermediate_nodes
+        self.lanes = lanes
         self.distance = 0
         self.ranges = []
+        self.occupations = []
         self.instantiate_nodes()
+        self.instantiate_occupations()
 
     def instantiate_nodes(self):
         previous_node = self.begin_node
@@ -30,6 +47,13 @@ class Way:
         distance = geopy.distance.vincenty(cords_1, cords_2).m
         self.ranges.append((Range(self.distance, distance), (previous_node, self.end_node)))
         self.distance += distance
+
+    def instantiate_occupations(self):
+        for lane_number in range(0, self.lanes):
+            lane_occupation = LaneOccupation(lane_number, [])
+            for point_number in range(0, self.distance):
+                lane_occupation.occupations.append(PositionOccupation(position=point_number, occupied=False))
+            self.occupations.append(lane_occupation)
 
     def coords_of_distance(self, distance: int):
         if distance > self.distance:
