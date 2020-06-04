@@ -38,20 +38,20 @@ class Way:
         for intermediate_node in self.intermediate_nodes:
             cords_1 = (previous_node.lat, previous_node.long)
             cords_2 = (intermediate_node.lat, intermediate_node.long)
-            distance = geopy.distance.vincenty(cords_1, cords_2)
-            self.ranges.append((Range(self.distance, distance), (previous_node, intermediate_node)))
+            distance = geopy.distance.vincenty(cords_1, cords_2).m
+            self.ranges.append((Range(self.distance, self.distance + distance), (previous_node, intermediate_node)))
             self.distance += distance
             previous_node = intermediate_node
         cords_1 = (previous_node.lat, previous_node.long)
         cords_2 = (self.end_node.lat, self.end_node.long)
         distance = geopy.distance.vincenty(cords_1, cords_2).m
-        self.ranges.append((Range(self.distance, distance), (previous_node, self.end_node)))
+        self.ranges.append((Range(self.distance, self.distance + distance), (previous_node, self.end_node)))
         self.distance += distance
 
     def instantiate_occupations(self):
         for lane_number in range(0, self.lanes):
             lane_occupation = LaneOccupation(lane_number, [])
-            for point_number in range(0, self.distance):
+            for point_number in range(0, int(self.distance)):
                 lane_occupation.occupations.append(PositionOccupation(position=point_number, occupied=False))
             self.occupations.append(lane_occupation)
 

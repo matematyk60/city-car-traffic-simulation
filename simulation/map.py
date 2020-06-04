@@ -18,6 +18,11 @@ class Map:
         for way in root.findall('way'):
             way_id = int(way.get('id'))
             nodes = way.findall('nd')
+            print(f"ELOOOO way_id = {way_id}")
+            try:
+                lanes = next(int(tag.get("v")) for tag in way.findall("tag") if tag.get("k") == "lanes")
+            except StopIteration:
+                lanes = 1
             begining = nodes.pop(0)
             begining_id = int(begining.get('ref'))
 
@@ -35,6 +40,7 @@ class Map:
                 node_id = int(node.get('ref'))
                 intermediate_nodes.append(self.node_dict[node_id])
 
-            self.way_dict[way_id] = Way(way_id, self.node_dict[begining_id], self.node_dict[end_id], intermediate_nodes)
+            self.way_dict[way_id] = Way(way_id, self.node_dict[begining_id], self.node_dict[end_id], lanes, intermediate_nodes)
             self.node_dict[begining_id].add_outgoing_way(self.way_dict[way_id])
-            
+
+        print(len(self.way_dict))

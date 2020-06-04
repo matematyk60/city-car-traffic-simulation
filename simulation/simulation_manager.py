@@ -2,6 +2,7 @@ from simulation.road_object import Car, StopLight
 from simulation.road import RoadPoint, RoadLane, RoadWay
 from simulation.node import Node, PositionNode, TraversableNode
 from simulation.way import Way
+from simulation.map import Map
 from typing import Dict
 import time
 
@@ -10,6 +11,7 @@ class SimulationManager:
 
     def __init__(self):
         print("started")
+        Map()
         self.node_dict = {}
         self.way = self.create_way(node_dict=self.node_dict)
     # car = Car(lane_number=0, start_position=0, v_max = 10, acc=30)
@@ -38,7 +40,7 @@ class SimulationManager:
         else:
             end_node = TraversableNode(node_id=end_node_id, lat=50.0738616, long=19.9461729)
             node_dict[end_node_id] = end_node
-        way = Way(way_id=way_id, begin_node=begin_node, end_node=end_node, intermediate_nodes=[])
+        way = Way(way_id=way_id, begin_node=begin_node, end_node=end_node, lanes=2, intermediate_nodes=[])
         begin_node.add_outgoing_way(way)
         return way
 
