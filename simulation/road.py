@@ -1,6 +1,7 @@
 
 import simulation.road_object as road_object_
 from typing import List
+from simulation.range import Range
 
 
 class RoadPoint:
@@ -44,6 +45,10 @@ class RoadWay:
     def paint(self):
         for road_object in self.objects:
             road_object.paint_yourself()
+
+
+
+
 
 
 
