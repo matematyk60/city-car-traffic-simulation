@@ -9,6 +9,9 @@ class Node:
     def __str__(self):
         return f"Node(id={self.node_id}, lat={self.lat}, long={self.long})"
 
+    def get_coords(self):
+        return (self.lat, self.long)
+
 class TraversableNode(Node):
     def __init__(self, node_id: int, lat: float, long: float):
         super().__init__(node_id, lat, long)
