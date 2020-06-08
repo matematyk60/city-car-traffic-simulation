@@ -10,6 +10,12 @@ class Map:
         self.origins = {}
 
         root = ET.parse('./obwodnica.osm').getroot()
+bounds = root.find('bounds')
+        self.minlat = float(bounds.get('minlat'))
+        self.minlon = float(bounds.get('minlon'))
+        self.maxlat = float(bounds.get('maxlat'))
+        self.maxlon = float(bounds.get('maxlon'))
+
 
         for node in root.findall('node'):
             node_id = int(node.get('id'))
@@ -20,7 +26,7 @@ class Map:
         for way in root.findall('way'):
             way_id = int(way.get('id'))
             nodes = way.findall('nd')
-            print(f"ELOOOO way_id = {way_id}")
+            #print(f"ELOOOO way_id = {way_id}")
             try:
                 lanes = next(int(tag.get("v")) for tag in way.findall("tag") if tag.get("k") == "lanes")
             except StopIteration:
@@ -45,4 +51,4 @@ class Map:
                                         intermediate_nodes)
             self.node_dict[begining_id].add_outgoing_way(self.way_dict[way_id])
 
-        print(len(self.way_dict))
+        #print(len(self.way_dict))
