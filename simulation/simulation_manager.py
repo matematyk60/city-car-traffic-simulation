@@ -1,5 +1,5 @@
-from simulation.road_object import Car, StopLight
-from simulation.road import RoadPoint, RoadLane, RoadWay
+#from simulation.road_object import Car, StopLight
+#from simulation.road import RoadPoint, RoadLane, RoadWay
 from simulation.node import Node, PositionNode, TraversableNode
 from simulation.way import Way
 from simulation.map import Map
@@ -27,6 +27,8 @@ class SimulationManager:
         self.M_HEIGHT = geopy.distance.vincenty(cords_1, cords_2).m
 
         self.scale = self.S_HEIGHT/ self.M_HEIGHT
+        self.map_x = 0
+        self.map_y = 0
 
 
         # self.node_dict = {}
@@ -69,13 +71,13 @@ class SimulationManager:
             x = int(self.scale * geopy.distance.vincenty(cords_1, cords_2).m)
             cords_2 = (self.map.maxlat, long)
             y = int(self.scale * geopy.distance.vincenty(cords_1, cords_2).m)
-            return (x, y)
+            return (2*x, 2*y)
         else:
             print(f"({lat}, {long}) is outside the map")
             return (0,0)
 
 
-    def draw_way(self, way):
+    def draw_way(self, surface, way):
         node_list = []        
         node_list.append(self.convert_coords(way.begin_node.get_coords()))
 
@@ -85,21 +87,26 @@ class SimulationManager:
         node_list.append(self.convert_coords(way.end_node.get_coords()))
 
 
-        pygame.draw.lines(self.screen, (0, 0, 0), False, node_list, 5)
+        pygame.draw.lines(surface, (0, 0, 0), False, node_list, int(way.lanes * 5 * self.scale))
 
 
     def draw_map(self):
         self.screen.fill((255,255,255))
+        
+        map_surface = pygame.Surface((self.scale * self.M_WIDTH, self.scale * self.M_HEIGHT))
+        map_surface.fill((255,255,255))
 
         #pygame.draw.lines(self.screen, (0, 0, 0), False, [(10, 10), (20, 30), (150, 400), (800, 700)], 10)
 
         for way in self.map.way_dict.values():
-            self.draw_way(way)
+            self.draw_way(map_surface, way)
 
         for node in self.map.node_dict.values():
             coords = node.get_coords()
-            pygame.draw.circle(self.screen, (0,0,255), self.convert_coords(coords), 1)
+            pygame.draw.circle(map_surface, (0,0,255), self.convert_coords(coords), 1)
 
+
+        self.screen.blit(map_surface, (self.map_x, self.map_y))
         pygame.display.flip()
 
 
@@ -109,11 +116,38 @@ class SimulationManager:
         # print(self.way.coords_of_distance(7))
         self.draw_map()
 
+
         run = True
         while run:
-            for event in pygame.event.get():
+            events = pygame.event.get()
+            for event in events:        
+                sth = False
                 if event.type == pygame.QUIT:
                     run = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 4:
+                        self.scale *= 1.5
+                        (x, y) = pygame.mouse.get_pos()
+                        # print(f"zoom in ({x}, {y})\nprzed: ({self.map_x}, {self.map_y})", end='')
+                        # self.map_x -= int((x+self.map_x) * 0.5)
+                        # self.map_y -= int((y+self.map_y) * 0.5)
+                        # print(f" po: ({self.map_x}, {self.map_y})")
+                    elif event.button == 5:
+                        self.scale /= 1.5
+                        (x, y) = pygame.mouse.get_pos()
+                        # print(f"zoom out ({x}, {y})\nprzed: ({self.map_x}, {self.map_y})", end='')
+                        # self.map_x -= int((x+self.map_x) * (1 / 1.5 - 1))
+                        # self.map_y -= int((y+self.map_y) * (1 / 1.5 - 1))
+                        # print(f" po: ({self.map_x}, {self.map_y})")
+                    elif event.button == 3:
+                        (dx, dy) = pygame.mouse.get_rel()
+                        sth = True
+                    self.draw_map()
+                elif event.type == pygame.MOUSEMOTION and event.buttons[2]:
+                    (dx, dy) = pygame.mouse.get_rel()
+                    self.map_x += dx
+                    self.map_y += dy
+                    self.draw_map()
             
 
         pygame.quit()
