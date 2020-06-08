@@ -9,13 +9,15 @@ class TestCarPositioner:
         self.first_node_start = TraversableNode(node_id=1, lat=50.06238262767, long=19.92439693544)
         self.first_node_end = TraversableNode(node_id=2, lat=50.0622555, long=19.9237373)
         self.first_way = Way(1, self.first_node_start, self.first_node_end, lanes=1, intermediate_nodes=[])
+        self.first_node_start.add_outgoing_way(self.first_way)
         self.first_way.distance = 10
         self.second_node_end = TraversableNode(node_id=3, lat=50.06238262767, long=19.92439693544)
         self.second_way = Way(2, self.first_node_end, self.second_node_end, lanes=1, intermediate_nodes=[])
+        self.first_node_end.add_outgoing_way(self.second_way)
         self.second_way.distance = 2
         self.third_node_end = TraversableNode(node_id=4, lat=50.0622555, long=19.9237373)
         self.third_way = Way(3, self.second_node_end, self.third_node_end, lanes=1, intermediate_nodes=[])
-        self.second_node_end.add_outgoing_way(self.second_way)
+        self.second_node_end.add_outgoing_way(self.third_way)
         self.way_dict = {1: self.first_way, 2: self.second_way, 3: self.third_way}
         self.directions_map = {1: 2, 2: 3, 3: 3}
         self.car = Car(current_way=self.first_way, current_lane=0, directions_map=self.directions_map, way_position=0,
