@@ -1,5 +1,5 @@
-from simulation.road_object import Car, StopLight
-from simulation.road import RoadPoint, RoadLane, RoadWay
+#from simulation.road_object import Car, StopLight
+#from simulation.road import RoadPoint, RoadLane, RoadWay
 from simulation.node import Node, PositionNode, TraversableNode
 from simulation.way import Way
 from simulation.map import Map
@@ -71,7 +71,7 @@ class SimulationManager:
             x = int(self.scale * geopy.distance.vincenty(cords_1, cords_2).m)
             cords_2 = (self.map.maxlat, long)
             y = int(self.scale * geopy.distance.vincenty(cords_1, cords_2).m)
-            return (x, y)
+            return (2*x, 2*y)
         else:
             print(f"({lat}, {long}) is outside the map")
             return (0,0)
@@ -87,7 +87,7 @@ class SimulationManager:
         node_list.append(self.convert_coords(way.end_node.get_coords()))
 
 
-        pygame.draw.lines(surface, (0, 0, 0), False, node_list, way.lanes * 2)
+        pygame.draw.lines(surface, (0, 0, 0), False, node_list, int(way.lanes * 5 * self.scale))
 
 
     def draw_map(self):
@@ -105,13 +105,6 @@ class SimulationManager:
             coords = node.get_coords()
             pygame.draw.circle(map_surface, (0,0,255), self.convert_coords(coords), 1)
 
-
-        #usun to typie przed commitem xDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-        node = TraversableNode(node_id=123456789, lat=50.07399, long=19.9460753)
-        coords = node.get_coords()
-        pygame.draw.circle(map_surface, (255,0,0), self.convert_coords(coords), 5)
-        #print(self.convert_coords(coords))
-        #usun to typie przed commitem xDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
 
         self.screen.blit(map_surface, (self.map_x, self.map_y))
         pygame.display.flip()

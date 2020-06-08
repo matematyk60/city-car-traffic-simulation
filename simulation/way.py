@@ -29,9 +29,9 @@ class Way:
         self.lanes = lanes
         self.distance = 0
         self.ranges = []
-        self.occupations = []
         self.instantiate_nodes()
-        self.instantiate_occupations()
+        self.lane_occupations = self.create_occupations()
+        self.next_lane_occupations = self.create_occupations()
 
     def instantiate_nodes(self):
         previous_node = self.begin_node
@@ -46,14 +46,16 @@ class Way:
         cords_2 = (self.end_node.lat, self.end_node.long)
         distance = geopy.distance.vincenty(cords_1, cords_2).m
         self.ranges.append((Range(self.distance, self.distance + distance), (previous_node, self.end_node)))
-        self.distance += distance
+        self.distance = int(self.distance + distance)
 
-    def instantiate_occupations(self):
+    def create_occupations(self) -> List[LaneOccupation]:
+        lane_occupations = []
         for lane_number in range(0, self.lanes):
             lane_occupation = LaneOccupation(lane_number, [])
             for point_number in range(0, int(self.distance)):
                 lane_occupation.occupations.append(PositionOccupation(position=point_number, occupied=False))
-            self.occupations.append(lane_occupation)
+            lane_occupations.append(lane_occupation)
+        return lane_occupations
 
     def coords_of_distance(self, distance: int):
         if distance > self.distance:
@@ -67,3 +69,10 @@ class Way:
             lat = (start_node.lat + ((end_node.lat - start_node.lat) * percent_of_distance))
             long = (start_node.long + ((end_node.long - start_node.long) * percent_of_distance))
             return lat, long
+
+    def mark_next_occupation(self, lane_number: int, position: int):
+        self.next_lane_occupations[lane_number].occupations[position].occupied = True
+
+    def rewrite_occupations(self):
+        self.lane_occupations = self.next_lane_occupations
+        self.next_lane_occupations = self.create_occupations()
