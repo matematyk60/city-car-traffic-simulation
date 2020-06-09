@@ -53,9 +53,7 @@
   <node id="-126429" action="modify" visible="true" lat="50.06388181431" lon="19.92374360494" />
   <node id="-126442" action="modify" visible="true" lat="50.06382370357" lon="19.92371275954" />
   <node id="-126451" action="modify" visible="true" lat="50.06379400249" lon="19.92391996019" />
-  <node id="-126497" action="modify" visible="true" lat="50.06235455491" lon="19.92440074548">
-    <tag k="edge" v="origin" />
-  </node>
+  <node id="-126497" action="modify" visible="true" lat="50.06235455491" lon="19.92440074548" />
   <node id="-126509" action="modify" visible="true" lat="50.06232614432" lon="19.9239005135" />
   <node id="-126520" action="modify" visible="true" lat="50.06225382637" lon="19.92392599449" />
   <node id="-126545" action="modify" visible="true" lat="50.06214104459" lon="19.9228879796">
@@ -2181,9 +2179,7 @@
   <node id="5211968089" action="modify" visible="true" version="1" lat="50.0442816" lon="19.9706935">
     <tag k="edge" v="origin" />
   </node>
-  <node id="5211968090" action="modify" visible="true" version="1" lat="50.0441957" lon="19.9707713">
-    <tag k="edge" v="origin" />
-  </node>
+  <node id="5211968090" action="modify" visible="true" version="1" lat="50.0441957" lon="19.9707713" />
   <node id="5289921745" visible="true" version="1" lat="50.0732321" lon="19.9468942" />
   <node id="5331206462" visible="true" version="1" lat="50.0658971" lon="19.9241282">
     <tag k="highway" v="traffic_signals" />
