@@ -1,8 +1,7 @@
-#from simulation.road_object import Car, StopLight
-#from simulation.road import RoadPoint, RoadLane, RoadWay
 from simulation.node import Node, PositionNode, TraversableNode
 from simulation.way import Way
 from simulation.map import Map
+from simulation.car import Car
 from typing import Dict
 import time
 import pygame
@@ -30,21 +29,6 @@ class SimulationManager:
         self.map_x = 0
         self.map_y = 0
 
-
-        # self.node_dict = {}
-        # self.way = self.create_way(node_dict=self.node_dict)
-    # car = Car(lane_number=0, start_position=0, v_max = 10, acc=30)
-    # stop_light = StopLight(position=40, redlight_every=1, redlight_duration=1000)
-    # lane_points = []
-    # for i in range(1, 10000):
-    #     lane_points.append(RoadPoint(usable=True))
-    # road_lane = RoadLane(1, lane_points)
-    # road_way = RoadWay(clock_wise=True)
-    # road_way.add_road_lane(road_lane)
-    # road_way.add_object(car)
-    # road_way.add_object(stop_light)
-    # self.road_way = road_way
-
     def create_way(self, node_dict: Dict[int, Node]):
         way_id = 24787456
         begin_node_id = 269325414
@@ -71,15 +55,21 @@ class SimulationManager:
             x = int(self.scale * geopy.distance.vincenty(cords_1, cords_2).m)
             cords_2 = (self.map.maxlat, long)
             y = int(self.scale * geopy.distance.vincenty(cords_1, cords_2).m)
-            return (2*x, 2*y)
+            return (x, y)
         else:
             print(f"({lat}, {long}) is outside the map")
             return (0,0)
+
+    def draw_node(self, surface, node):
+        pygame.draw.circle(surface, (0,0,255), self.convert_coords((node.lat, node.long)), int(3 * self.scale))
 
 
     def draw_way(self, surface, way):
         node_list = []        
         node_list.append(self.convert_coords(way.begin_node.get_coords()))
+
+        if node_list[0][0] + self.map_x > 2 * self.S_WIDTH or node_list[0][1] + self.map_y > 2 * self.S_HEIGHT:
+            return
 
         for node in way.intermediate_nodes:
             node_list.append(self.convert_coords(node.get_coords()))
@@ -87,7 +77,13 @@ class SimulationManager:
         node_list.append(self.convert_coords(way.end_node.get_coords()))
 
 
-        pygame.draw.lines(surface, (0, 0, 0), False, node_list, int(way.lanes * 5 * self.scale))
+        pygame.draw.lines(surface, (0, 0, 0), False, node_list, int(way.lanes * 4 * self.scale))
+        # self.draw_node(surface, way.begin_node)
+        # self.draw_node(surface, way.end_node)
+
+    def draw_car(self, surface, car):
+        coords = Way.coords_of_distance(car.way_position)
+        pygame.draw.circle(surface, (0,0,255), self.convert_coords(coords), int(1.5 * self.scale))
 
 
     def draw_map(self):
@@ -96,14 +92,14 @@ class SimulationManager:
         map_surface = pygame.Surface((self.scale * self.M_WIDTH, self.scale * self.M_HEIGHT))
         map_surface.fill((255,255,255))
 
-        #pygame.draw.lines(self.screen, (0, 0, 0), False, [(10, 10), (20, 30), (150, 400), (800, 700)], 10)
-
         for way in self.map.way_dict.values():
             self.draw_way(map_surface, way)
 
-        for node in self.map.node_dict.values():
-            coords = node.get_coords()
-            pygame.draw.circle(map_surface, (0,0,255), self.convert_coords(coords), 1)
+        # for node in self.map.node_dict.values():
+        #     coords = node.get_coords()
+        #     if coords[0] + self.map_x > self.S_WIDTH or coords[1] + self.map_y > self.S_HEIGHT:
+        #         continue
+        #     pygame.draw.circle(map_surface, (0,0,255), self.convert_coords(coords), int(2 * self.scale))
 
 
         self.screen.blit(map_surface, (self.map_x, self.map_y))
@@ -111,11 +107,7 @@ class SimulationManager:
 
 
     def run(self):
-        # print(self.node_dict[269325414])
-        # print(self.node_dict[2264896423])
-        # print(self.way.coords_of_distance(7))
         self.draw_map()
-
 
         run = True
         while run:
@@ -125,20 +117,18 @@ class SimulationManager:
                 if event.type == pygame.QUIT:
                     run = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 4:
+                    if event.button == 4 and self.scale < 3:
                         self.scale *= 1.5
                         (x, y) = pygame.mouse.get_pos()
-                        # print(f"zoom in ({x}, {y})\nprzed: ({self.map_x}, {self.map_y})", end='')
-                        # self.map_x -= int((x+self.map_x) * 0.5)
-                        # self.map_y -= int((y+self.map_y) * 0.5)
-                        # print(f" po: ({self.map_x}, {self.map_y})")
-                    elif event.button == 5:
+                        self.map_x -= int((x - self.map_x) * 0.5)
+                        self.map_y -= int((y - self.map_y) * 0.5)
+                        print(self.scale)
+                    elif event.button == 5 and self.scale > 0.07:
                         self.scale /= 1.5
                         (x, y) = pygame.mouse.get_pos()
-                        # print(f"zoom out ({x}, {y})\nprzed: ({self.map_x}, {self.map_y})", end='')
-                        # self.map_x -= int((x+self.map_x) * (1 / 1.5 - 1))
-                        # self.map_y -= int((y+self.map_y) * (1 / 1.5 - 1))
-                        # print(f" po: ({self.map_x}, {self.map_y})")
+                        self.map_x -= int((x - self.map_x) * (-1/3))
+                        self.map_y -= int((y - self.map_y) * (-1/3))
+                        print(self.scale)
                     elif event.button == 3:
                         (dx, dy) = pygame.mouse.get_rel()
                         sth = True
