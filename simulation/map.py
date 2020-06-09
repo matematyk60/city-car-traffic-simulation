@@ -30,12 +30,12 @@ class Map:
                 lanes = next(int(tag.get("v")) for tag in way.findall("tag") if tag.get("k") == "lanes")
             except StopIteration:
                 lanes = 1
-            begining = nodes.pop(0)
-            begining_id = int(begining.get('ref'))
-
-            # some ways have just one node, we ignore them
+            
+            # some ways have just one node (or none), we ignore them
             # to do: remove them from obwodnica.osm
             try:
+                begining = nodes.pop(0)
+                begining_id = int(begining.get('ref'))
                 end = nodes.pop()
                 end_id = int(end.get('ref'))
             except IndexError:
