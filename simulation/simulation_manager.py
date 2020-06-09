@@ -6,6 +6,7 @@ from typing import Dict
 import time
 import pygame
 import geopy.distance
+import os
 
 
 class SimulationManager:
@@ -13,10 +14,13 @@ class SimulationManager:
     def __init__(self):
         print("started")
         self.map = Map()
+
+        os.environ['SDL_VIDEO_CENTERED'] = '1'
         pygame.init()
+        info = pygame.display.Info() # You have to call this before pygame.display.set_mode()
         self.S_WIDTH = 1080
         self.S_HEIGHT = 720
-        self.screen = pygame.display.set_mode((self.S_WIDTH, self.S_HEIGHT))
+        self.screen = pygame.display.set_mode((self.S_WIDTH, self.S_HEIGHT), pygame.RESIZABLE)
         pygame.display.set_caption("Traffic simulation")
 
         cords_1 = (self.map.maxlat, self.map.minlon)
@@ -61,7 +65,7 @@ class SimulationManager:
             return (0,0)
 
     def draw_node(self, surface, node):
-        pygame.draw.circle(surface, (0,0,255), self.convert_coords((node.lat, node.long)), int(3 * self.scale))
+        pygame.draw.circle(surface, (0,0,255), self.convert_coords((node.lat, node.long)), int(1.5 * self.scale))
 
 
     def draw_way(self, surface, way):
@@ -78,8 +82,8 @@ class SimulationManager:
 
 
         pygame.draw.lines(surface, (0, 0, 0), False, node_list, int(way.lanes * 4 * self.scale))
-        # self.draw_node(surface, way.begin_node)
-        # self.draw_node(surface, way.end_node)
+        self.draw_node(surface, way.begin_node)
+        self.draw_node(surface, way.end_node)
 
     def draw_car(self, surface, car):
         coords = Way.coords_of_distance(car.way_position)
@@ -122,13 +126,11 @@ class SimulationManager:
                         (x, y) = pygame.mouse.get_pos()
                         self.map_x -= int((x - self.map_x) * 0.5)
                         self.map_y -= int((y - self.map_y) * 0.5)
-                        print(self.scale)
                     elif event.button == 5 and self.scale > 0.07:
                         self.scale /= 1.5
                         (x, y) = pygame.mouse.get_pos()
                         self.map_x -= int((x - self.map_x) * (-1/3))
                         self.map_y -= int((y - self.map_y) * (-1/3))
-                        print(self.scale)
                     elif event.button == 3:
                         (dx, dy) = pygame.mouse.get_rel()
                         sth = True
@@ -138,6 +140,10 @@ class SimulationManager:
                     self.map_x += dx
                     self.map_y += dy
                     self.draw_map()
+                elif event.type == pygame.VIDEORESIZE:
+                    self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+                    self.draw_map()
+
             
 
         pygame.quit()
