@@ -20,7 +20,7 @@ class DirectionsFinder:
         directions[start_node] = {}
 
         while queue:
-            node_id, previous_way = queue.pop()
+            node_id, previous_way = queue.pop(0)
             if node_id == end_node:
                 return directions[node_id]
             for way in self.find_outgoing_ways(node_id):
