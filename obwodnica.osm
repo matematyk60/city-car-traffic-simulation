@@ -54,9 +54,7 @@
   <node id='-126429' action='modify' visible='true' lat='50.06388181431' lon='19.92374360494' />
   <node id='-126442' action='modify' visible='true' lat='50.06382370357' lon='19.92371275954' />
   <node id='-126451' action='modify' visible='true' lat='50.06379400249' lon='19.92391996019' />
-  <node id='-126497' action='modify' visible='true' lat='50.06235455491' lon='19.92440074548'>
-    <tag k='edge' v='origin' />
-  </node>
+  <node id='-126497' action='modify' visible='true' lat='50.06235455491' lon='19.92440074548' />
   <node id='-126509' action='modify' visible='true' lat='50.06232614432' lon='19.9239005135' />
   <node id='-126520' action='modify' visible='true' lat='50.06225382637' lon='19.92392599449' />
   <node id='-126545' action='modify' visible='true' lat='50.06214104459' lon='19.9228879796'>
@@ -770,9 +768,7 @@
   <node id='278069256' action='delete' visible='true' version='1' lat='50.0433153' lon='19.9358156' />
   <node id='278069257' action='delete' visible='true' version='1' lat='50.0434591' lon='19.9359205' />
   <node id='278069260' action='delete' visible='true' version='1' lat='50.0436993' lon='19.9362726' />
-  <node id='278069261' action='delete' visible='true' version='1' lat='50.0437512' lon='19.9363842'>
-    <tag k='edge' v='both' />
-  </node>
+  <node id='278069261' action='delete' visible='true' version='1' lat='50.0437512' lon='19.9363842' />
   <node id='278234269' action='modify' visible='true' version='1' lat='50.0517218' lon='19.93030811534' />
   <node id='279035505' action='modify' visible='true' version='1' lat='50.0582287' lon='19.9260322' />
   <node id='280858344' action='modify' visible='true' version='1' lat='50.0659509' lon='19.9248627' />
@@ -1143,9 +1139,7 @@
   <node id='1079902645' visible='true' version='1' lat='50.0739014' lon='19.938104' />
   <node id='1079902653' visible='true' version='1' lat='50.0738975' lon='19.9384177' />
   <node id='1079902669' visible='true' version='1' lat='50.0738431' lon='19.9380547' />
-  <node id='1080043206' action='delete' visible='true' version='1' lat='50.0740965' lon='19.9332742'>
-    <tag k='edge' v='both' />
-  </node>
+  <node id='1080043206' action='delete' visible='true' version='1' lat='50.0740965' lon='19.9332742' />
   <node id='1080043278' visible='true' version='1' lat='50.0736895' lon='19.9386962'>
     <tag k='highway' v='traffic_signals' />
   </node>
@@ -1923,9 +1917,7 @@
   <node id='2921112478' visible='true' version='1' lat='50.0732044' lon='19.9435741' />
   <node id='2921112479' visible='true' version='1' lat='50.0732454' lon='19.9424325' />
   <node id='2924568750' visible='true' version='1' lat='50.0630095' lon='19.9601587' />
-  <node id='2961496322' action='delete' visible='true' version='1' lat='50.0656332' lon='19.9255833'>
-    <tag k='edge' v='both' />
-  </node>
+  <node id='2961496322' action='delete' visible='true' version='1' lat='50.0656332' lon='19.9255833' />
   <node id='3037566731' action='modify' visible='true' version='1' lat='50.05337003432' lon='19.9288356871' />
   <node id='3139219592' action='modify' visible='true' version='1' lat='50.0371649' lon='19.9410196'>
     <tag k='edge' v='term' />
@@ -2081,9 +2073,7 @@
     <tag k='highway' v='give_way' />
   </node>
   <node id='3802908427' visible='true' version='1' lat='50.0666384' lon='19.9246434' />
-  <node id='3824613976' action='delete' visible='true' version='1' lat='50.0329202' lon='19.9470254'>
-    <tag k='edge' v='both' />
-  </node>
+  <node id='3824613976' action='delete' visible='true' version='1' lat='50.0329202' lon='19.9470254' />
   <node id='3824613977' action='modify' visible='true' version='1' lat='50.03392632024' lon='19.94568404048' />
   <node id='3824613978' action='modify' visible='true' version='1' lat='50.03522648262' lon='19.94384914233' />
   <node id='3824793075' action='modify' visible='true' version='1' lat='50.04286724511' lon='19.93520239511' />
@@ -2248,9 +2238,7 @@
   <node id='5211968089' action='modify' visible='true' version='1' lat='50.0442816' lon='19.9706935'>
     <tag k='edge' v='origin' />
   </node>
-  <node id='5211968090' action='modify' visible='true' version='1' lat='50.0441957' lon='19.9707713'>
-    <tag k='edge' v='origin' />
-  </node>
+  <node id='5211968090' action='modify' visible='true' version='1' lat='50.0441957' lon='19.9707713' />
   <node id='5289921745' visible='true' version='1' lat='50.0732321' lon='19.9468942' />
   <node id='5331206462' visible='true' version='1' lat='50.0658971' lon='19.9241282'>
     <tag k='highway' v='traffic_signals' />

@@ -33,6 +33,9 @@ class Car:
         else:
             self.v = min(self.v + self.acc, self.v_max)
 
+    def get_coordinates(self):
+        return self.current_way.coords_of_distance(self.way_position)
+
     def reached_destination(self):
         return self.current_way.end_node.node_id == self.destination_node_id and (
                 self.current_way.distance - self.way_position < 3)

@@ -1,4 +1,5 @@
 from simulation.node import Node, PositionNode, TraversableNode
+from simulation.positioner import Positioner
 from simulation.way import Way
 from simulation.map import Map
 from simulation.car import Car
@@ -33,23 +34,34 @@ class SimulationManager:
         self.map_x = 0
         self.map_y = 0
 
-    def create_way(self, node_dict: Dict[int, Node]):
-        way_id = 24787456
-        begin_node_id = 269325414
-        end_node_id = 2264896423
-        if begin_node_id in node_dict:
-            begin_node = node_dict[begin_node_id]
-        else:
-            begin_node = TraversableNode(node_id=begin_node_id, lat=50.07399, long=19.9460753)
-            node_dict[begin_node_id] = begin_node
-        if end_node_id in node_dict:
-            end_node = node_dict[end_node_id]
-        else:
-            end_node = TraversableNode(node_id=end_node_id, lat=50.0738616, long=19.9461729)
-            node_dict[end_node_id] = end_node
-        way = Way(way_id=way_id, begin_node=begin_node, end_node=end_node, lanes=2, intermediate_nodes=[])
-        begin_node.add_outgoing_way(way)
-        return way
+    def run_simulation(self):
+        node_dict = self.map.node_dict
+        origin_dict = self.map.origin_dict
+        way_dict = self.map.way_dict
+        car_list = self.map.cars
+        positioner = Positioner(way_dict)
+        while(True):
+            for origin in origin_dict.values():
+                origin.try_creating_new_car()
+
+            for car in car_list:
+                car.make_a_move(positioner)
+                if car.reached_destination():
+                    print(f"Car [{car}] reached destination ! removing from car list...")
+                    car_list.remove(car)
+                else:
+                    pass
+                    # coords = car.get_coordinates()
+                    # print(f"Car [{car} has positions [{coords}]]")
+
+            for way in way_dict.values():
+                way.rewrite_occupations()
+
+            time.sleep(0.1)
+
+
+
+
 
     def convert_coords(self, coords):
         (lat, long) = coords
@@ -108,6 +120,7 @@ class SimulationManager:
 
         self.screen.blit(map_surface, (self.map_x, self.map_y))
         pygame.display.flip()
+
 
 
     def run(self):

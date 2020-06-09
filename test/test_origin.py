@@ -12,8 +12,8 @@ class TestCarPositioner:
         self.long_way = Way(1, self.start_node, self.end_node, lanes=1, intermediate_nodes=[])
         self.way_dict = {1: self.long_way}
         self.cars = []
-        self.origin = Origin(chance_of_introducing=100, origin_way=self.long_way, destination_node_id=2,
-                             directions_map={1: 1}, cars=self.cars)
+        self.origin = Origin(chance_of_introducing=100, origin_way=self.long_way, cars=self.cars)
+        self.origin.add_directions_map({2: {1: 1}})
 
     def test_introduces_new_car(self):
         self.init()

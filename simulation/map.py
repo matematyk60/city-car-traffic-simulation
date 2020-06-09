@@ -1,4 +1,7 @@
 import xml.etree.ElementTree as ET
+
+from simulation.directions_finder import DirectionsFinder
+from simulation.origin import Origin
 from simulation.way import Way
 from simulation.node import Node, TraversableNode
 
@@ -7,7 +10,9 @@ class Map:
     def __init__(self):
         self.node_dict = {}
         self.way_dict = {}
-        self.origins = {}
+        self.origin_dict = {}
+        self.cars = []
+        self.term_list = []
 
         root = ET.parse('./obwodnica.osm').getroot()
         bounds = root.find('bounds')
@@ -30,7 +35,7 @@ class Map:
                 lanes = next(int(tag.get("v")) for tag in way.findall("tag") if tag.get("k") == "lanes")
             except StopIteration:
                 lanes = 1
-            
+
             # some ways have just one node (or none), we ignore them
             # to do: remove them from obwodnica.osm
             try:
@@ -50,4 +55,35 @@ class Map:
                                         intermediate_nodes)
             self.node_dict[begining_id].add_outgoing_way(self.way_dict[way_id])
 
-        # print(len(self.way_dict))
+        for node in root.findall('node'):
+            try:
+                edge = next(tag.get("v") for tag in node.findall("tag") if tag.get("k") == "edge")
+            except StopIteration:
+                edge = None
+            if edge is None:
+                pass
+            elif edge == "term":
+                self.term_list.append(int(node.get('id')))
+            else:
+                node = self.node_dict[int(node.get('id'))]
+                try:
+                    origin_way = next(way for way in self.way_dict.values() if way.begin_node.node_id == node.node_id)
+                except StopIteration:
+                    print(f"Could not find origin way for origin with node id {node.node_id}")
+                    pass
+                origin = Origin(chance_of_introducing=20, origin_way=origin_way,
+                                cars=self.cars)
+                self.origin_dict[node.node_id] = origin
+
+        directions_finder = DirectionsFinder(self.node_dict, self.way_dict)
+        for origin in self.origin_dict.values():
+            origin_directions_map = {}
+            for node in self.term_list:
+                directions = directions_finder.find_directions(start_node=origin.origin_way.begin_node.node_id, end_node=node)
+                origin_directions_map[node] = directions
+            origin.add_directions_map(origin_directions_map)
+
+        print(len(self.way_dict))
+        print(len(self.origin_dict))
+        print(len(self.node_dict))
+
