@@ -57,6 +57,15 @@ class Way:
             lane_occupations.append(lane_occupation)
         return lane_occupations
 
+    def between_nodes(self, distance: int):
+        if distance > self.distance:
+            print(f"Way {self.way_id} has only distance {self.distance}. I can't find coords of distance {distance}")
+        else:
+            range_nodepair = next(x for x in self.ranges if (x[0].__contains__(distance)))
+            range = range_nodepair[0]
+            percent_of_distance = (distance - range.start) / range.len()
+            return range_nodepair[1]
+
     def coords_of_distance(self, distance: int):
         if distance > self.distance:
             print(f"Way {self.way_id} has only distance {self.distance}. I can't find coords of distance {distance}")

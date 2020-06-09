@@ -3,7 +3,7 @@
 from simulation.simulation_manager import SimulationManager
 
 def main():
-    SimulationManager().run_simulation()
+    SimulationManager().run()
 
 if __name__ == '__main__':
     main()

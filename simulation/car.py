@@ -1,6 +1,7 @@
 from simulation.way import Way
 from simulation.positioner import PositionRequest
 from typing import Dict
+from random import randint
 
 
 class Car:
@@ -14,6 +15,7 @@ class Car:
         self.current_lane = current_lane
         self.directions_map = directions_map
         self.destination_node_id = destination_node_id
+        self.color = (randint(15,245), randint(15,245), randint(15,245)) 
 
     def make_a_move(self, positioner):
         position_request = PositionRequest(
@@ -39,3 +41,6 @@ class Car:
     def reached_destination(self):
         return self.current_way.end_node.node_id == self.destination_node_id and (
                 self.current_way.distance - self.way_position < 3)
+
+    def between_nodes(self):
+        return self.current_way.between_nodes(self.way_position)
