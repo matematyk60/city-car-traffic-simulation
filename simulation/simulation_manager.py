@@ -22,8 +22,11 @@ class SimulationManager:
         info = pygame.display.Info()
         self.S_WIDTH = 1080
         self.S_HEIGHT = 720
-        self.screen = pygame.display.set_mode((self.S_WIDTH, self.S_HEIGHT), pygame.RESIZABLE)
+        flags = pygame.RESIZABLE | pygame.DOUBLEBUF
+        self.screen = pygame.display.set_mode((self.S_WIDTH, self.S_HEIGHT), flags)
+        self.screen.set_alpha(None)
         pygame.display.set_caption("Traffic simulation")
+        pygame.event.set_allowed([pygame.MOUSEBUTTONDOWN, pygame.MOUSEMOTION, pygame.QUIT, pygame.VIDEORESIZE])
 
         cords_1 = (self.map.maxlat, self.map.minlon)
         cords_2 = (self.map.maxlat, self.map.maxlon)
@@ -34,6 +37,8 @@ class SimulationManager:
         self.scale = self.S_HEIGHT/ self.M_HEIGHT
         self.map_x = 0
         self.map_y = 0
+
+        self.map_surface = self.draw_map()
 
     def run_simulation(self):
         node_dict = self.map.node_dict
@@ -73,68 +78,56 @@ class SimulationManager:
             print(f"({lat}, {long}) is outside the map")
             return (0,0)
 
-    def draw_node(self, surface, node):
-        pygame.draw.circle(surface, (0,0,255), self.convert_coords((node.lat, node.long)), int(1.5 * self.scale))
+    def is_inside_screen(self, coords):
+        return 0 < coords[0] + self.map_x < self.S_WIDTH and 0 < coords[1] + self.map_y < self.S_HEIGHT
 
+    def draw_node(self, surface, node, radius):
+        coords = self.convert_coords((node.lat, node.long))
+        pygame.draw.circle(surface, (0,0,0), self.convert_coords((node.lat, node.long)), int(radius * self.scale))
 
-    def draw_way(self, surface, way):
-        node_list = []        
-        node_list.append(self.convert_coords(way.begin_node.get_coords()))
-
-        if node_list[0][0] + self.map_x > 2 * self.S_WIDTH or node_list[0][1] + self.map_y > 2 * self.S_HEIGHT:
-            return
+    def draw_way(self, surface, way):     
+        prev_node = self.convert_coords(way.begin_node.get_coords())
 
         for node in way.intermediate_nodes:
-            node_list.append(self.convert_coords(node.get_coords()))
+            curr_node = self.convert_coords(node.get_coords())
+            pygame.draw.line(surface, (0, 0, 0), prev_node, curr_node, int(way.lanes * 4 * self.scale))
+            prev_node = curr_node
 
-        node_list.append(self.convert_coords(way.end_node.get_coords()))
+        curr_node = self.convert_coords(way.end_node.get_coords())
+        pygame.draw.line(surface, (0, 0, 0), prev_node, curr_node, int(way.lanes * 4 * self.scale))
 
+    def draw_cars(self, surface):
+        for car in self.map.cars:
+            coords = self.convert_coords(car.get_coordinates())
+            if self.is_inside_screen(coords):
+                (node_before, node_after) = car.between_nodes()
+            
+                before_coords = self.convert_coords(node_before.get_coords())
+                after_coords = self.convert_coords(node_after.get_coords())
 
-        pygame.draw.lines(surface, (0, 0, 0), False, node_list, int(way.lanes * 4 * self.scale))
-        self.draw_node(surface, way.begin_node)
-        self.draw_node(surface, way.end_node)
+                angle = atan2(after_coords[1] - before_coords[1], after_coords[0] - before_coords[0]) + pi/2
 
-    #TODO: allaign it with way
-    def draw_car(self, surface, car):
-        coords = self.convert_coords(car.get_coordinates())
-        if coords[0] + self.map_x > self.S_WIDTH or coords[1] + self.map_y > self.S_HEIGHT:
-            return
+                lanes = car.current_lane
+                way_lanes = car.current_way.lanes
+                lane_distance = self.scale * (((way_lanes - 1) / 2) - (lanes - 1) - 1) * 4
+                x = int(coords[0] + cos(angle) * lane_distance)
+                y = int(coords[1] + sin(angle) * lane_distance)
 
-        (node_before, node_after) = car.between_nodes()
-        
-        before_coords = self.convert_coords(node_before.get_coords())
-        after_coords = self.convert_coords(node_after.get_coords())
-
-        angle = atan2(after_coords[1] - before_coords[1], after_coords[0] - before_coords[0]) + pi/2
-
-        lanes = car.current_lane
-        way_lanes = car.current_way.lanes
-        lane_distance = self.scale * (((way_lanes - 1) / 2) - (lanes - 1)) * 4
-        x = int(coords[0] + cos(angle) * lane_distance)
-        y = int(coords[1] + sin(angle) * lane_distance)
-
-        pygame.draw.circle(surface, car.color, (x, y), int(1.5 * self.scale))
-
+                pygame.draw.circle(self.screen, car.color, (x + self.map_x, y + self.map_y), int(1.5 * self.scale))
 
     def draw_map(self):
-        self.screen.fill((255,255,255))
-        
         map_surface = pygame.Surface((self.scale * self.M_WIDTH, self.scale * self.M_HEIGHT))
         map_surface.fill((255,255,255))
 
         for way in self.map.way_dict.values():
             self.draw_way(map_surface, way)
 
-        # for node in self.map.node_dict.values():
-        #     coords = node.get_coords()
-        #     if coords[0] + self.map_x > self.S_WIDTH or coords[1] + self.map_y > self.S_HEIGHT:
-        #         continue
-        #     pygame.draw.circle(map_surface, (0,0,255), self.convert_coords(coords), int(2 * self.scale))
+        return map_surface
 
-        for car in self.map.cars:
-            self.draw_car(map_surface,car)
-
-        self.screen.blit(map_surface, (self.map_x, self.map_y))
+    def draw(self):
+        self.screen.fill((255,255,255))
+        self.screen.blit(self.map_surface, (self.map_x, self.map_y))
+        self.draw_cars(self.map_surface)
         pygame.display.flip()
 
 
@@ -144,32 +137,34 @@ class SimulationManager:
         way_dict = self.map.way_dict
         car_list = self.map.cars
         positioner = Positioner(way_dict)
+        time_stmap = time.time()
 
-        self.draw_map()
-
+        self.draw()
+        
         run = True
         while run:
-            start = time.time()
             # simulation
-            for origin in origin_dict.values():
-                origin.try_creating_new_car()
+            if time.time() - time_stmap > 0.1:
+                for origin in origin_dict.values():
+                    origin.try_creating_new_car()
 
-            for car in car_list:
-                car.make_a_move(positioner)
-                if car.reached_destination():
-                    #print(f"Car [{car}] reached destination ! removing from car list...")
-                    car_list.remove(car)
-                else:
-                    pass
-                    # coords = car.get_coordinates()
-                    # print(f"Car [{car} has positions [{coords}]]")
+                for car in car_list:
+                    car.make_a_move(positioner)
+                    if car.reached_destination():
+                        #print(f"Car [{car}] reached destination ! removing from car list...")
+                        car_list.remove(car)
+                    else:
+                        pass
+                        # coords = car.get_coordinates()
+                        # print(f"Car [{car} has positions [{coords}]]")
 
-            for way in way_dict.values():
-                way.rewrite_occupations()
+                for way in way_dict.values():
+                    way.rewrite_occupations()
+                
+                time_stmap = time.time()
 
             # pygame
-            events = pygame.event.get()
-            for event in events:
+            for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -178,11 +173,14 @@ class SimulationManager:
                         (x, y) = pygame.mouse.get_pos()
                         self.map_x -= int((x - self.map_x) * 0.5)
                         self.map_y -= int((y - self.map_y) * 0.5)
+                        
+                        self.map_surface = self.draw_map()
                     elif event.button == 5 and self.scale > 0.07:
                         self.scale /= 1.5
                         (x, y) = pygame.mouse.get_pos()
                         self.map_x -= int((x - self.map_x) * (-1/3))
                         self.map_y -= int((y - self.map_y) * (-1/3))
+                        self.map_surface = self.draw_map()
                     elif event.button == 3:
                         (dx, dy) = pygame.mouse.get_rel()
                         sth = True
@@ -193,10 +191,8 @@ class SimulationManager:
                 elif event.type == pygame.VIDEORESIZE:
                     self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
 
-                self.draw_map()
-            end = time.time()
-            time.sleep(0.1)            
-            print(end - start)
+            self.draw()
+            #time.sleep(0.1)
 
         pygame.quit()
         print("end")
