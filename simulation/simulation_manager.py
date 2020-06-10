@@ -3,6 +3,7 @@ from simulation.positioner import Positioner
 from simulation.way import Way
 from simulation.map import Map
 from simulation.car import Car
+from simulation.button import Button
 from typing import Dict
 import time
 import pygame
@@ -39,6 +40,8 @@ class SimulationManager:
         self.map_y = 0
 
         self.map_surface = self.draw_map()
+
+        self.buttons = self.create_menu()
 
     def run_simulation(self):
         node_dict = self.map.node_dict
@@ -124,11 +127,51 @@ class SimulationManager:
 
         return map_surface
 
+    def draw_menu(self):
+        for button in self.buttons:
+            button.draw(self.screen)
+
     def draw(self):
         self.screen.fill((255,255,255))
         self.screen.blit(self.map_surface, (self.map_x, self.map_y))
         self.draw_cars(self.map_surface)
+        self.draw_menu()
         pygame.display.flip()
+
+    def create_menu(self):
+        buttons = []
+        buttons.append(Button(self.S_WIDTH - 310, 10, 200, 25, 'Chance of car spawning:', False))
+        buttons.append(Button(self.S_WIDTH - 105, 10, 25, 25, '-', True, self.decrease_spawning_chance))
+        buttons.append(Button(self.S_WIDTH - 75, 10, 35, 25, '20%', False))
+        buttons.append(Button(self.S_WIDTH - 35, 10, 25, 25, '+', True, self.increase_spawning_chance))
+        buttons.append(Button(self.S_WIDTH - 310, 40, 200, 25, 'Number of cars:', False))
+        buttons.append(Button(self.S_WIDTH - 105, 40, 95, 25, '0', False))
+        
+        return buttons
+
+    def handle_buttons_collisions(self, mouse_pos):
+        for button in self.buttons:
+            if button.clickable and button.check_collision(mouse_pos):
+                button.action()
+
+    def update_buttons(self):
+        self.buttons[5].update_text(str(len(self.map.cars)))
+
+    def increase_spawning_chance(self):
+        val = int(self.buttons[2].text.replace('%', '')) + 5
+        if val <= 100:
+            self.buttons[2].update_text(str(val) + '%')
+
+        for origin in self.map.origin_dict.values():
+            origin.set_chance(val)
+
+    def decrease_spawning_chance(self):
+        val = int(self.buttons[2].text.replace('%', '')) - 5
+        if val >= 0:
+            self.buttons[2].update_text(str(val) + '%')
+
+        for origin in self.map.origin_dict.values():
+            origin.set_chance(val)
 
 
     def run(self):
@@ -139,6 +182,7 @@ class SimulationManager:
         positioner = Positioner(way_dict)
         time_stmap = time.time()
 
+        self.update_buttons()
         self.draw()
         
         run = True
@@ -160,6 +204,9 @@ class SimulationManager:
 
                 for way in way_dict.values():
                     way.rewrite_occupations()
+
+                
+                self.update_buttons()
                 
                 time_stmap = time.time()
 
@@ -184,6 +231,8 @@ class SimulationManager:
                     elif event.button == 3:
                         (dx, dy) = pygame.mouse.get_rel()
                         sth = True
+                    else:
+                        self.handle_buttons_collisions(pygame.mouse.get_pos())
                 elif event.type == pygame.MOUSEMOTION and event.buttons[2]:
                     (dx, dy) = pygame.mouse.get_rel()
                     self.map_x += dx

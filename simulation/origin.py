@@ -32,3 +32,6 @@ class Origin:
         if len(self.car_queue) != 0 and not self.origin_way.lane_occupations[0].occupations[0].occupied:
             car = self.car_queue.pop(0)
             self.cars.append(car)
+
+    def set_chance(self, chance):
+        self.chance_of_introducing = chance
