@@ -18,7 +18,8 @@ class SimulationManager:
     def __init__(self):
         print("started")
         self.map = Map()
-        self.statistics = Statistics()
+        self.statistics = Statistics(self.map.way_dict)
+        self.simulation_counter = 0
 
         os.environ['SDL_VIDEO_CENTERED'] = '1'
         pygame.init()
@@ -147,9 +148,13 @@ class SimulationManager:
         buttons['spawning_chance'] = Button(self.S_WIDTH - 75, 10, 35, 25, '20%', False)
         buttons[2] = Button(self.S_WIDTH - 35, 10, 25, 25, '+', True, self.increase_spawning_chance)
         buttons[3] = Button(self.S_WIDTH - 310, 40, 200, 25, 'Number of cars:', False)
-        buttons['cars_number'] = Button(self.S_WIDTH - 105, 40, 95, 25, '0', False)    
+        buttons['car_number'] = Button(self.S_WIDTH - 105, 40, 95, 25, '0', False)    
         buttons[4] = Button(self.S_WIDTH - 310, 70, 200, 25, 'Average speed:', False)
-        buttons['average_speed'] = Button(self.S_WIDTH - 105, 70, 95, 25, '0', False)   
+        buttons['average_speed'] = Button(self.S_WIDTH - 105, 70, 95, 25, '0', False)
+        buttons[5] = Button(self.S_WIDTH - 310, 100, 200, 25, 'Average speed of 25049529:', False)  
+        buttons['selection_speed'] = Button(self.S_WIDTH - 105, 100, 95, 25, '0', False)
+        buttons[6] = Button(self.S_WIDTH - 310, 130, 200, 25, 'Flow of 25049529:', False)  
+        buttons['selection_flow'] = Button(self.S_WIDTH - 105, 130, 95, 25, '0', False)
         
         return buttons
 
@@ -159,8 +164,11 @@ class SimulationManager:
                 button.action()
 
     def update_buttons(self):
-        self.buttons['cars_number'].update_text(str(len(self.map.cars)))
-        self.buttons['average_speed'].update_text(str(round(self.statistics.get_average_speed(), 2)) + ' m/s')
+        self.buttons['car_number'].update_text(str(len(self.map.cars)))
+        self.buttons['average_speed'].update_text(str(round(self.statistics.get_average_speed() * 3.6, 1)) + ' km/h')
+        self.buttons['selection_speed'].update_text(str(round(self.statistics.get_way_average_speed(25049529) * 3.6, 1)) + ' km/h')
+        if self.simulation_counter == 0:
+            self.buttons['selection_flow'].update_text(str(self.statistics.get_way_flow(25049529)) + ' veh/min')
 
     def increase_spawning_chance(self):
         val = int(self.buttons['spawning_chance'].text.replace('%', '')) + 5
@@ -194,10 +202,12 @@ class SimulationManager:
         while run:
             # simulation
             if time.time() - time_stamp > 0.1:
+                time_stamp = time.time()
+
                 for origin in origin_dict.values():
                     origin.try_creating_new_car()
 
-                self.statistics.reset()
+                self.statistics.reset_average_speed()
                 for car in car_list:
                     car.make_a_move(positioner)
                     if car.reached_destination():
@@ -207,46 +217,50 @@ class SimulationManager:
                         pass
                         # coords = car.get_coordinates()
                         # print(f"Car [{car} has positions [{coords}]]")
-                    self.statistics.register_speed(car.v)
+                    self.statistics.register_move(car)
 
                 for way in way_dict.values():
                     way.rewrite_occupations()
 
                 self.update_buttons()
                 
-                time_stamp = time.time()
+                if self.simulation_counter == 0:
+                    self.statistics.reset_flow()
 
-            # pygame
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    run = False
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 4 and self.scale < 3:
-                        self.scale *= 1.5
-                        (x, y) = pygame.mouse.get_pos()
-                        self.map_x -= int((x - self.map_x) * 0.5)
-                        self.map_y -= int((y - self.map_y) * 0.5)
-                        
-                        self.map_surface = self.draw_map()
-                    elif event.button == 5 and self.scale > 0.07:
-                        self.scale /= 1.5
-                        (x, y) = pygame.mouse.get_pos()
-                        self.map_x -= int((x - self.map_x) * (-1/3))
-                        self.map_y -= int((y - self.map_y) * (-1/3))
-                        self.map_surface = self.draw_map()
-                    elif event.button == 3:
+                self.simulation_counter += 1
+                self.simulation_counter %= 60
+
+                # pygame
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        run = False
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        if event.button == 4 and self.scale < 3:
+                            self.scale *= 1.5
+                            (x, y) = pygame.mouse.get_pos()
+                            self.map_x -= int((x - self.map_x) * 0.5)
+                            self.map_y -= int((y - self.map_y) * 0.5)
+                            
+                            self.map_surface = self.draw_map()
+                        elif event.button == 5 and self.scale > 0.07:
+                            self.scale /= 1.5
+                            (x, y) = pygame.mouse.get_pos()
+                            self.map_x -= int((x - self.map_x) * (-1/3))
+                            self.map_y -= int((y - self.map_y) * (-1/3))
+                            self.map_surface = self.draw_map()
+                        elif event.button == 3:
+                            (dx, dy) = pygame.mouse.get_rel()
+                            sth = True
+                        else:
+                            self.handle_buttons_collisions(pygame.mouse.get_pos())
+                    elif event.type == pygame.MOUSEMOTION and event.buttons[2]:
                         (dx, dy) = pygame.mouse.get_rel()
-                        sth = True
-                    else:
-                        self.handle_buttons_collisions(pygame.mouse.get_pos())
-                elif event.type == pygame.MOUSEMOTION and event.buttons[2]:
-                    (dx, dy) = pygame.mouse.get_rel()
-                    self.map_x += dx
-                    self.map_y += dy
-                elif event.type == pygame.VIDEORESIZE:
-                    self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+                        self.map_x += dx
+                        self.map_y += dy
+                    elif event.type == pygame.VIDEORESIZE:
+                        self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
 
-            self.draw()
+                self.draw()
             #time.sleep(0.1)
 
         pygame.quit()

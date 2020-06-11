@@ -15,7 +15,8 @@ class Car:
         self.current_lane = current_lane
         self.directions_map = directions_map
         self.destination_node_id = destination_node_id
-        self.color = (randint(15,245), randint(15,245), randint(15,245)) 
+        self.color = (randint(15,245), randint(15,245), randint(15,245))
+        self.old_way_id = current_way.way_id
 
     def make_a_move(self, positioner):
         position_request = PositionRequest(
@@ -26,6 +27,7 @@ class Car:
             speed=self.v
         )
         position_response = positioner.position(position_request)
+        self.old_way_id = self.current_way.way_id
         self.current_way = position_response.next_way
         self.way_position = position_response.next_position
         # self.next_lane = ??? TODO: add lane changing logic
