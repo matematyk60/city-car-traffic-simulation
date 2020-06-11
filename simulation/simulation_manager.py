@@ -4,6 +4,7 @@ from simulation.way import Way
 from simulation.map import Map
 from simulation.car import Car
 from simulation.button import Button
+from simulation.statistics import Statistics
 from typing import Dict
 import time
 import pygame
@@ -17,6 +18,7 @@ class SimulationManager:
     def __init__(self):
         print("started")
         self.map = Map()
+        self.statistics = Statistics()
 
         os.environ['SDL_VIDEO_CENTERED'] = '1'
         pygame.init()
@@ -128,7 +130,7 @@ class SimulationManager:
         return map_surface
 
     def draw_menu(self):
-        for button in self.buttons:
+        for button in self.buttons.values():
             button.draw(self.screen)
 
     def draw(self):
@@ -139,36 +141,39 @@ class SimulationManager:
         pygame.display.flip()
 
     def create_menu(self):
-        buttons = []
-        buttons.append(Button(self.S_WIDTH - 310, 10, 200, 25, 'Chance of car spawning:', False))
-        buttons.append(Button(self.S_WIDTH - 105, 10, 25, 25, '-', True, self.decrease_spawning_chance))
-        buttons.append(Button(self.S_WIDTH - 75, 10, 35, 25, '20%', False))
-        buttons.append(Button(self.S_WIDTH - 35, 10, 25, 25, '+', True, self.increase_spawning_chance))
-        buttons.append(Button(self.S_WIDTH - 310, 40, 200, 25, 'Number of cars:', False))
-        buttons.append(Button(self.S_WIDTH - 105, 40, 95, 25, '0', False))
+        buttons = {}
+        buttons[0] = Button(self.S_WIDTH - 310, 10, 200, 25, 'Chance of car spawning:', False)
+        buttons[1] = Button(self.S_WIDTH - 105, 10, 25, 25, '-', True, self.decrease_spawning_chance)
+        buttons['spawning_chance'] = Button(self.S_WIDTH - 75, 10, 35, 25, '20%', False)
+        buttons[2] = Button(self.S_WIDTH - 35, 10, 25, 25, '+', True, self.increase_spawning_chance)
+        buttons[3] = Button(self.S_WIDTH - 310, 40, 200, 25, 'Number of cars:', False)
+        buttons['cars_number'] = Button(self.S_WIDTH - 105, 40, 95, 25, '0', False)    
+        buttons[4] = Button(self.S_WIDTH - 310, 70, 200, 25, 'Average speed:', False)
+        buttons['average_speed'] = Button(self.S_WIDTH - 105, 70, 95, 25, '0', False)   
         
         return buttons
 
     def handle_buttons_collisions(self, mouse_pos):
-        for button in self.buttons:
+        for button in self.buttons.values():
             if button.clickable and button.check_collision(mouse_pos):
                 button.action()
 
     def update_buttons(self):
-        self.buttons[5].update_text(str(len(self.map.cars)))
+        self.buttons['cars_number'].update_text(str(len(self.map.cars)))
+        self.buttons['average_speed'].update_text(str(round(self.statistics.get_average_speed(), 2)) + ' m/s')
 
     def increase_spawning_chance(self):
-        val = int(self.buttons[2].text.replace('%', '')) + 5
+        val = int(self.buttons['spawning_chance'].text.replace('%', '')) + 5
         if val <= 100:
-            self.buttons[2].update_text(str(val) + '%')
+            self.buttons['spawning_chance'].update_text(str(val) + '%')
 
         for origin in self.map.origin_dict.values():
             origin.set_chance(val)
 
     def decrease_spawning_chance(self):
-        val = int(self.buttons[2].text.replace('%', '')) - 5
+        val = int(self.buttons['spawning_chance'].text.replace('%', '')) - 5
         if val >= 0:
-            self.buttons[2].update_text(str(val) + '%')
+            self.buttons['spawning_chance'].update_text(str(val) + '%')
 
         for origin in self.map.origin_dict.values():
             origin.set_chance(val)
@@ -180,7 +185,7 @@ class SimulationManager:
         way_dict = self.map.way_dict
         car_list = self.map.cars
         positioner = Positioner(way_dict)
-        time_stmap = time.time()
+        time_stamp = time.time()
 
         self.update_buttons()
         self.draw()
@@ -188,10 +193,11 @@ class SimulationManager:
         run = True
         while run:
             # simulation
-            if time.time() - time_stmap > 0.1:
+            if time.time() - time_stamp > 0.1:
                 for origin in origin_dict.values():
                     origin.try_creating_new_car()
 
+                self.statistics.reset()
                 for car in car_list:
                     car.make_a_move(positioner)
                     if car.reached_destination():
@@ -201,14 +207,14 @@ class SimulationManager:
                         pass
                         # coords = car.get_coordinates()
                         # print(f"Car [{car} has positions [{coords}]]")
+                    self.statistics.register_speed(car.v)
 
                 for way in way_dict.values():
                     way.rewrite_occupations()
 
-                
                 self.update_buttons()
                 
-                time_stmap = time.time()
+                time_stamp = time.time()
 
             # pygame
             for event in pygame.event.get():
