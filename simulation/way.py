@@ -32,6 +32,7 @@ class Way:
         self.instantiate_nodes()
         self.lane_occupations = self.create_occupations()
         self.next_lane_occupations = self.create_occupations()
+        self.color = (0, 0, 0)
 
     def instantiate_nodes(self):
         previous_node = self.begin_node

@@ -11,7 +11,7 @@ import pygame
 import geopy.distance
 import os
 from random import randint
-from math import atan2, sin, cos, pi
+from math import atan2, sin, cos, pi, sqrt
 
 class SimulationManager:
 
@@ -43,8 +43,9 @@ class SimulationManager:
         self.map_y = 0
 
         self.map_surface = self.draw_map()
-
         self.buttons = self.create_menu()
+
+        self.selected = 0
 
     def run_simulation(self):
         node_dict = self.map.node_dict
@@ -96,11 +97,11 @@ class SimulationManager:
 
         for node in way.intermediate_nodes:
             curr_node = self.convert_coords(node.get_coords())
-            pygame.draw.line(surface, (0, 0, 0), prev_node, curr_node, int(way.lanes * 4 * self.scale))
+            pygame.draw.line(surface, way.color, prev_node, curr_node, int(way.lanes * 4 * self.scale))
             prev_node = curr_node
 
         curr_node = self.convert_coords(way.end_node.get_coords())
-        pygame.draw.line(surface, (0, 0, 0), prev_node, curr_node, int(way.lanes * 4 * self.scale))
+        pygame.draw.line(surface, way.color, prev_node, curr_node, int(way.lanes * 4 * self.scale))
 
     def draw_cars(self, surface):
         for car in self.map.cars:
@@ -151,24 +152,85 @@ class SimulationManager:
         buttons['car_number'] = Button(self.S_WIDTH - 105, 40, 95, 25, '0', False)    
         buttons[4] = Button(self.S_WIDTH - 310, 70, 200, 25, 'Average speed:', False)
         buttons['average_speed'] = Button(self.S_WIDTH - 105, 70, 95, 25, '0', False)
-        buttons[5] = Button(self.S_WIDTH - 310, 100, 200, 25, 'Average speed of 25049529:', False)  
-        buttons['selection_speed'] = Button(self.S_WIDTH - 105, 100, 95, 25, '0', False)
-        buttons[6] = Button(self.S_WIDTH - 310, 130, 200, 25, 'Flow of 25049529:', False)  
-        buttons['selection_flow'] = Button(self.S_WIDTH - 105, 130, 95, 25, '0', False)
-        
+
         return buttons
+
+    def update_menu(self):
+        self.buttons[5] = Button(self.S_WIDTH - 310, 100, 200, 25, f'Number of cars on {self.selected}:', False)  
+        self.buttons['selection_car_number'] = Button(self.S_WIDTH - 105, 100, 95, 25, '0', False)
+        self.buttons[6] = Button(self.S_WIDTH - 310, 130, 200, 25, f'Average speed of {self.selected}:', False)  
+        self.buttons['selection_speed'] = Button(self.S_WIDTH - 105, 130, 95, 25, '0', False)
+        self.buttons[7] = Button(self.S_WIDTH - 310, 160, 200, 25, f'Flow of {self.selected}:', False)  
+        self.buttons['selection_flow'] = Button(self.S_WIDTH - 105, 160, 95, 25, '0', False)
+
+    def calculate_distance(self, p, q, r):
+        a = q[0] - p[0]
+        b = q[1] - p[1]
+        numerator = abs(b*r[0] - a*r[1] + q[0]*p[1] - q[1]*p[0])
+        denominator = sqrt(a**2 + b**2)
+
+        # print(f'{a}, {b}, {numerator} / {denominator} ', end=' ')
+
+        return numerator / denominator
+
+    def is_in_proximity(self, p, q, r):
+        return min(p[0], q[0]) - 5 < r[0] < max(p[0], q[0]) + 5 and min(p[1], q[1]) - 5 < r[1] < max(p[1], q[1]) + 5
+
+    def handle_way_collisions(self, mouse_pos):
+        (x, y) = mouse_pos
+        x -= self.map_x
+        y -= self.map_y
+        for way in self.map.way_dict.values():
+            # if way.way_id != 25049529:
+            #     continue
+
+            prev_node = self.convert_coords(way.begin_node.get_coords())
+            for node in way.intermediate_nodes:
+                curr_node = self.convert_coords(node.get_coords())
+                try:
+                    distance = self.calculate_distance(prev_node, curr_node, (x, y))
+                    if distance <= way.lanes*10 and self.is_in_proximity(prev_node, curr_node, (x, y)):
+                        if self.selected != 0:
+                            self.map.way_dict[self.selected].color = (0, 0, 0)
+                        self.selected = way.way_id
+                        self.map.way_dict[self.selected].color = (127, 127, 127)
+                        self.update_menu()
+                        self.map_surface = self.draw_map()
+                        return
+                except ZeroDivisionError:
+                    pass
+                prev_node = curr_node
+
+            curr_node = self.convert_coords(way.end_node.get_coords())
+            try:
+                distance = self.calculate_distance(prev_node, curr_node, (x, y))
+                if distance <= way.lanes*10 and self.is_in_proximity(prev_node, curr_node, (x, y)):
+                    if self.selected != 0:
+                        self.map.way_dict[self.selected].color = (0, 0, 0)
+                    self.selected = way.way_id
+                    self.map.way_dict[self.selected].color = (127, 127, 127)
+                    self.update_menu()
+                    self.map_surface = self.draw_map()
+                    return
+            except ZeroDivisionError:
+                pass
 
     def handle_buttons_collisions(self, mouse_pos):
         for button in self.buttons.values():
-            if button.clickable and button.check_collision(mouse_pos):
-                button.action()
+            if button.check_collision(mouse_pos):
+                if button.clickable: 
+                    button.action()
+                return True
+        return False
 
     def update_buttons(self):
         self.buttons['car_number'].update_text(str(len(self.map.cars)))
         self.buttons['average_speed'].update_text(str(round(self.statistics.get_average_speed() * 3.6, 1)) + ' km/h')
-        self.buttons['selection_speed'].update_text(str(round(self.statistics.get_way_average_speed(25049529) * 3.6, 1)) + ' km/h')
-        if self.simulation_counter == 0:
-            self.buttons['selection_flow'].update_text(str(self.statistics.get_way_flow(25049529)) + ' veh/min')
+        if self.selected != 0:
+            self.buttons['selection_car_number'].update_text(str(self.statistics.get_way_car_number(self.selected)))
+            self.buttons['selection_speed'].update_text(str(round(self.statistics.get_way_average_speed(self.selected) * 3.6, 1)) + ' km/h')
+            if self.simulation_counter == 0:
+                self.buttons['selection_flow'].update_text(str(self.statistics.get_way_flow(self.selected)) + ' veh/min')
 
     def increase_spawning_chance(self):
         val = int(self.buttons['spawning_chance'].text.replace('%', '')) + 5
@@ -252,7 +314,9 @@ class SimulationManager:
                             (dx, dy) = pygame.mouse.get_rel()
                             sth = True
                         else:
-                            self.handle_buttons_collisions(pygame.mouse.get_pos())
+                            mouse_pos = pygame.mouse.get_pos()
+                            if not(self.handle_buttons_collisions(mouse_pos) or self.screen.get_at(mouse_pos) == (255,255,255)):
+                                self.handle_way_collisions(mouse_pos)
                     elif event.type == pygame.MOUSEMOTION and event.buttons[2]:
                         (dx, dy) = pygame.mouse.get_rel()
                         self.map_x += dx

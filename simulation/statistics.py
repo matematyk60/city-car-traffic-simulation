@@ -21,6 +21,9 @@ class Statistics:
     def get_way_flow(self, way_id):
         return self.way_statistics_dict[way_id].get_flow()
 
+    def get_way_car_number(self, way_id):
+        return self.way_statistics_dict[way_id].car_number
+
     def reset_average_speed(self):
         self.car_number = 0
         self.speed_sum = 0
