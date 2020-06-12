@@ -17,14 +17,17 @@ class Origin:
 
     def try_creating_new_car(self):
         value = randint(0, 100)
+        v_value = randint(40, 100)
         if value < self.chance_of_introducing:
             terms = list(self.directions_map.keys())
             terms_size = len(terms)
             term_number = randint(0, terms_size - 1)
             term = terms[term_number]
+            v_max = int(v_value * 20 / 100)
+            a = int(v_value * 3 / 100)
             car = Car(current_way=self.origin_way, current_lane=0, directions_map=self.directions_map[term],
                       way_position=0,
-                      destination_node_id=term, v=0, v_max=5, acc=1)
+                      destination_node_id=term, v=0, v_max=v_max, acc=a)
             self.car_queue.append(car)
         self.try_introducing_new_car()
 
