@@ -30,7 +30,7 @@ class Car:
         self.old_way_id = self.current_way.way_id
         self.current_way = position_response.next_way
         self.way_position = position_response.next_position
-        # self.next_lane = ??? TODO: add lane changing logic
+        self.current_lane = position_response.next_lane
         self.current_way.mark_next_occupation(self.current_lane, self.way_position)
         if position_response.should_break:
             self.v = position_response.distance_travelled
