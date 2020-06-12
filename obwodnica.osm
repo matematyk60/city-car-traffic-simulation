@@ -1,115 +1,115 @@
 <osm version="0.6" generator="JOSM">
   <bounds minlat="50.031" minlon="19.921" maxlat="50.077" maxlon="19.978" origin="osmconvert 0.8.4" />
-  <node id="118345" action="modify" visible="true" lat="50.04244599548" lon="19.96280884003" />
-  <node id="118346" action="modify" visible="true" lat="50.04235071905" lon="19.96205259453" />
-  <node id="118355" action="modify" visible="true" lat="50.04244794707" lon="19.96282433742" />
-  <node id="118395" action="modify" visible="true" lat="50.04237000457" lon="19.96223598585" />
-  <node id="118412" action="modify" visible="true" lat="50.04246341628" lon="19.96294717719" />
-  <node id="121069" action="modify" visible="true" lat="50.04906861505" lon="19.96864378318">
+  <node id="-118345" action="modify" visible="true" lat="50.04244599548" lon="19.96280884003" />
+  <node id="-118346" action="modify" visible="true" lat="50.04235071905" lon="19.96205259453" />
+  <node id="-118355" action="modify" visible="true" lat="50.04244794707" lon="19.96282433742" />
+  <node id="-118395" action="modify" visible="true" lat="50.04237000457" lon="19.96223598585" />
+  <node id="-118412" action="modify" visible="true" lat="50.04246341628" lon="19.96294717719" />
+  <node id="-121069" action="modify" visible="true" lat="50.04906861505" lon="19.96864378318">
     <tag k="edge" v="term" />
   </node>
-  <node id="121073" action="modify" visible="true" lat="50.07325113011" lon="19.93585757189">
+  <node id="-121073" action="modify" visible="true" lat="50.07325113011" lon="19.93585757189">
     <tag k="edge" v="origin" />
   </node>
-  <node id="121084" action="modify" visible="true" lat="50.07345857286" lon="19.93575985395" />
-  <node id="121089" action="modify" visible="true" lat="50.07344824413" lon="19.93584297856" />
-  <node id="123435" action="modify" visible="true" lat="50.07359263761" lon="19.9357116209" />
-  <node id="123443" action="modify" visible="true" lat="50.07374670716" lon="19.93569150433" />
-  <node id="123469" action="modify" visible="true" lat="50.07358403036" lon="19.93580549821" />
-  <node id="123476" action="modify" visible="true" lat="50.07378199676" lon="19.93577733502" />
-  <node id="123529" action="modify" visible="true" lat="50.07388614397" lon="19.93577867612" />
-  <node id="123539" action="modify" visible="true" lat="50.07399287311" lon="19.93568748102">
+  <node id="-121084" action="modify" visible="true" lat="50.07345857286" lon="19.93575985395" />
+  <node id="-121089" action="modify" visible="true" lat="50.07344824413" lon="19.93584297856" />
+  <node id="-123435" action="modify" visible="true" lat="50.07359263761" lon="19.9357116209" />
+  <node id="-123443" action="modify" visible="true" lat="50.07374670716" lon="19.93569150433" />
+  <node id="-123469" action="modify" visible="true" lat="50.07358403036" lon="19.93580549821" />
+  <node id="-123476" action="modify" visible="true" lat="50.07378199676" lon="19.93577733502" />
+  <node id="-123529" action="modify" visible="true" lat="50.07388614397" lon="19.93577867612" />
+  <node id="-123539" action="modify" visible="true" lat="50.07399287311" lon="19.93568748102">
     <tag k="edge" v="origin" />
   </node>
-  <node id="123547" action="modify" visible="true" lat="50.07386979029" lon="19.93569955096" />
-  <node id="123621" action="modify" visible="true" lat="50.07389130915" lon="19.93378042907">
+  <node id="-123547" action="modify" visible="true" lat="50.07386979029" lon="19.93569955096" />
+  <node id="-123621" action="modify" visible="true" lat="50.07389130915" lon="19.93378042907">
     <tag k="edge" v="term" />
   </node>
-  <node id="123631" action="modify" visible="true" lat="50.07372432923" lon="19.93406474322" />
-  <node id="123638" action="modify" visible="true" lat="50.07369850754" lon="19.93395745486" />
-  <node id="123695" action="modify" visible="true" lat="50.07347471899" lon="19.93434369296" />
-  <node id="123723" action="modify" visible="true" lat="50.07349193353" lon="19.93445098132" />
-  <node id="123736" action="modify" visible="true" lat="50.07361932095" lon="19.93429004878" />
-  <node id="123742" action="modify" visible="true" lat="50.0736038279" lon="19.93417203158" />
-  <node id="126084" action="modify" visible="true" lat="50.07227398864" lon="19.93209466204">
+  <node id="-123631" action="modify" visible="true" lat="50.07372432923" lon="19.93406474322" />
+  <node id="-123638" action="modify" visible="true" lat="50.07369850754" lon="19.93395745486" />
+  <node id="-123695" action="modify" visible="true" lat="50.07347471899" lon="19.93434369296" />
+  <node id="-123723" action="modify" visible="true" lat="50.07349193353" lon="19.93445098132" />
+  <node id="-123736" action="modify" visible="true" lat="50.07361932095" lon="19.93429004878" />
+  <node id="-123742" action="modify" visible="true" lat="50.0736038279" lon="19.93417203158" />
+  <node id="-126084" action="modify" visible="true" lat="50.07227398864" lon="19.93209466204">
     <tag k="edge" v="origin" />
   </node>
-  <node id="126094" action="modify" visible="true" lat="50.07242978391" lon="19.93173524603" />
-  <node id="126141" action="modify" visible="true" lat="50.07251585843" lon="19.93154346809" />
-  <node id="126153" action="modify" visible="true" lat="50.07248487162" lon="19.93146300182" />
-  <node id="126161" action="modify" visible="true" lat="50.07258041422" lon="19.9312779294" />
-  <node id="126170" action="modify" visible="true" lat="50.07262172988" lon="19.93134364352" />
-  <node id="126180" action="modify" visible="true" lat="50.0728429402" lon="19.93080720171">
+  <node id="-126094" action="modify" visible="true" lat="50.07242978391" lon="19.93173524603" />
+  <node id="-126141" action="modify" visible="true" lat="50.07251585843" lon="19.93154346809" />
+  <node id="-126153" action="modify" visible="true" lat="50.07248487162" lon="19.93146300182" />
+  <node id="-126161" action="modify" visible="true" lat="50.07258041422" lon="19.9312779294" />
+  <node id="-126170" action="modify" visible="true" lat="50.07262172988" lon="19.93134364352" />
+  <node id="-126180" action="modify" visible="true" lat="50.0728429402" lon="19.93080720171">
     <tag k="edge" v="origin" />
   </node>
-  <node id="126195" action="modify" visible="true" lat="50.07269661442" lon="19.93108078703" />
-  <node id="126331" action="modify" visible="true" lat="50.06574304397" lon="19.92521613568">
+  <node id="-126195" action="modify" visible="true" lat="50.07269661442" lon="19.93108078703" />
+  <node id="-126331" action="modify" visible="true" lat="50.06574304397" lon="19.92521613568">
     <tag k="edge" v="origin" />
   </node>
-  <node id="126337" action="modify" visible="true" lat="50.06578780898" lon="19.92494255036">
+  <node id="-126337" action="modify" visible="true" lat="50.06578780898" lon="19.92494255036">
     <tag k="highway" v="traffic_signals" />
   </node>
-  <node id="126428" action="modify" visible="true" lat="50.06385770912" lon="19.92396354608" />
-  <node id="126429" action="modify" visible="true" lat="50.06388181431" lon="19.92374360494" />
-  <node id="126442" action="modify" visible="true" lat="50.06382370357" lon="19.92371275954" />
-  <node id="126451" action="modify" visible="true" lat="50.06379400249" lon="19.92391996019" />
-  <node id="126497" action="modify" visible="true" lat="50.06235455491" lon="19.92440074548" />
-  <node id="126509" action="modify" visible="true" lat="50.06232614432" lon="19.9239005135" />
-  <node id="126520" action="modify" visible="true" lat="50.06225382637" lon="19.92392599449" />
-  <node id="126545" action="modify" visible="true" lat="50.06214104459" lon="19.9228879796">
+  <node id="-126428" action="modify" visible="true" lat="50.06385770912" lon="19.92396354608" />
+  <node id="-126429" action="modify" visible="true" lat="50.06388181431" lon="19.92374360494" />
+  <node id="-126442" action="modify" visible="true" lat="50.06382370357" lon="19.92371275954" />
+  <node id="-126451" action="modify" visible="true" lat="50.06379400249" lon="19.92391996019" />
+  <node id="-126497" action="modify" visible="true" lat="50.06235455491" lon="19.92440074548" />
+  <node id="-126509" action="modify" visible="true" lat="50.06232614432" lon="19.9239005135" />
+  <node id="-126520" action="modify" visible="true" lat="50.06225382637" lon="19.92392599449" />
+  <node id="-126545" action="modify" visible="true" lat="50.06214104459" lon="19.9228879796">
     <tag k="edge" v="origin" />
   </node>
-  <node id="126546" action="modify" visible="true" lat="50.06215654134" lon="19.92317765817" />
-  <node id="126623" action="modify" visible="true" lat="50.05936188002" lon="19.92557287082" />
-  <node id="126624" action="modify" visible="true" lat="50.05945486582" lon="19.92594569787">
+  <node id="-126546" action="modify" visible="true" lat="50.06215654134" lon="19.92317765817" />
+  <node id="-126623" action="modify" visible="true" lat="50.05936188002" lon="19.92557287082" />
+  <node id="-126624" action="modify" visible="true" lat="50.05945486582" lon="19.92594569787">
     <tag k="edge" v="term" />
   </node>
-  <node id="126664" action="modify" visible="true" lat="50.05934724335" lon="19.92494791612" />
-  <node id="126688" action="modify" visible="true" lat="50.05927922582" lon="19.92497339711" />
-  <node id="126694" action="modify" visible="true" lat="50.05930247233" lon="19.92519602045" />
-  <node id="126733" action="modify" visible="true" lat="50.05919140558" lon="19.9244651185">
+  <node id="-126664" action="modify" visible="true" lat="50.05934724335" lon="19.92494791612" />
+  <node id="-126688" action="modify" visible="true" lat="50.05927922582" lon="19.92497339711" />
+  <node id="-126694" action="modify" visible="true" lat="50.05930247233" lon="19.92519602045" />
+  <node id="-126733" action="modify" visible="true" lat="50.05919140558" lon="19.9244651185">
     <tag k="edge" v="origin" />
   </node>
-  <node id="126734" action="modify" visible="true" lat="50.0592310108" lon="19.92467701301">
+  <node id="-126734" action="modify" visible="true" lat="50.0592310108" lon="19.92467701301">
     <tag k="highway" v="traffic_signals" />
   </node>
-  <node id="126800" action="modify" visible="true" lat="50.05805747682" lon="19.9252094315">
+  <node id="-126800" action="modify" visible="true" lat="50.05805747682" lon="19.9252094315">
     <tag k="edge" v="term" />
   </node>
-  <node id="126806" action="modify" visible="true" lat="50.05814529914" lon="19.92550179228" />
-  <node id="126859" action="modify" visible="true" lat="50.05505850603" lon="19.92773808472" />
-  <node id="126868" action="modify" visible="true" lat="50.05503353535" lon="19.92758653991" />
-  <node id="126904" action="modify" visible="true" lat="50.05319342003" lon="19.92919653386" />
-  <node id="127230" action="modify" visible="true" lat="50.03336183932" lon="19.94661211431">
+  <node id="-126806" action="modify" visible="true" lat="50.05814529914" lon="19.92550179228" />
+  <node id="-126859" action="modify" visible="true" lat="50.05505850603" lon="19.92773808472" />
+  <node id="-126868" action="modify" visible="true" lat="50.05503353535" lon="19.92758653991" />
+  <node id="-126904" action="modify" visible="true" lat="50.05319342003" lon="19.92919653386" />
+  <node id="-127230" action="modify" visible="true" lat="50.03336183932" lon="19.94661211431">
     <tag k="edge" v="origin" />
   </node>
-  <node id="127262" action="modify" visible="true" lat="50.03456095687" lon="19.94487404555" />
-  <node id="127263" action="modify" visible="true" lat="50.03472635028" lon="19.94454681605" />
-  <node id="127264" action="modify" visible="true" lat="50.03498822202" lon="19.94395136565" />
-  <node id="127265" action="modify" visible="true" lat="50.03517084226" lon="19.94353830546" />
-  <node id="129748" action="modify" visible="true" lat="50.04909789465" lon="19.96858209237">
+  <node id="-127262" action="modify" visible="true" lat="50.03456095687" lon="19.94487404555" />
+  <node id="-127263" action="modify" visible="true" lat="50.03472635028" lon="19.94454681605" />
+  <node id="-127264" action="modify" visible="true" lat="50.03498822202" lon="19.94395136565" />
+  <node id="-127265" action="modify" visible="true" lat="50.03517084226" lon="19.94353830546" />
+  <node id="-129748" action="modify" visible="true" lat="50.04909789465" lon="19.96858209237">
     <tag k="edge" v="origin" />
   </node>
-  <node id="129749" action="modify" visible="true" lat="50.04890671571" lon="19.96825486287" />
-  <node id="129757" action="modify" visible="true" lat="50.04885332326" lon="19.968320577" />
-  <node id="129786" action="modify" visible="true" lat="50.04880509734" lon="19.96813148193" />
-  <node id="129787" action="modify" visible="true" lat="50.04871209089" lon="19.96800541811" />
-  <node id="129803" action="modify" visible="true" lat="50.04856569192" lon="19.96797323093" />
-  <node id="129805" action="modify" visible="true" lat="50.04862769643" lon="19.96791958675" />
-  <node id="129806" action="modify" visible="true" lat="50.04847096266" lon="19.96782302722">
+  <node id="-129749" action="modify" visible="true" lat="50.04890671571" lon="19.96825486287" />
+  <node id="-129757" action="modify" visible="true" lat="50.04885332326" lon="19.968320577" />
+  <node id="-129786" action="modify" visible="true" lat="50.04880509734" lon="19.96813148193" />
+  <node id="-129787" action="modify" visible="true" lat="50.04871209089" lon="19.96800541811" />
+  <node id="-129803" action="modify" visible="true" lat="50.04856569192" lon="19.96797323093" />
+  <node id="-129805" action="modify" visible="true" lat="50.04862769643" lon="19.96791958675" />
+  <node id="-129806" action="modify" visible="true" lat="50.04847096266" lon="19.96782302722">
     <tag k="edge" v="term" />
   </node>
-  <node id="129858" action="modify" visible="true" lat="50.06806086833" lon="19.95241776042" />
-  <node id="129871" action="modify" visible="true" lat="50.06795713867" lon="19.95236344602" />
-  <node id="129878" action="modify" visible="true" lat="50.06788741234" lon="19.95228901371" />
-  <node id="129888" action="modify" visible="true" lat="50.06770663822" lon="19.95225950941">
+  <node id="-129858" action="modify" visible="true" lat="50.06806086833" lon="19.95241776042" />
+  <node id="-129871" action="modify" visible="true" lat="50.06795713867" lon="19.95236344602" />
+  <node id="-129878" action="modify" visible="true" lat="50.06788741234" lon="19.95228901371" />
+  <node id="-129888" action="modify" visible="true" lat="50.06770663822" lon="19.95225950941">
     <tag k="edge" v="origin" />
   </node>
-  <node id="129889" action="modify" visible="true" lat="50.06787019578" lon="19.95235875115" />
-  <node id="129893" action="modify" visible="true" lat="50.06795627806" lon="19.95240971379" />
-  <node id="129894" action="modify" visible="true" lat="50.06797435541" lon="19.95242580704" />
-  <node id="129897" action="modify" visible="true" lat="50.06804666473" lon="19.95248883896" />
-  <node id="129898" action="modify" visible="true" lat="50.06821452524" lon="19.95261356167">
+  <node id="-129889" action="modify" visible="true" lat="50.06787019578" lon="19.95235875115" />
+  <node id="-129893" action="modify" visible="true" lat="50.06795627806" lon="19.95240971379" />
+  <node id="-129894" action="modify" visible="true" lat="50.06797435541" lon="19.95242580704" />
+  <node id="-129897" action="modify" visible="true" lat="50.06804666473" lon="19.95248883896" />
+  <node id="-129898" action="modify" visible="true" lat="50.06821452524" lon="19.95261356167">
     <tag k="edge" v="term" />
   </node>
   <node id="31349956" visible="true" version="1" lat="50.0739722" lon="19.9456648" />
@@ -2417,7 +2417,7 @@
   <node id="7251281366" action="modify" visible="true" version="1" lat="50.04877132927" lon="19.96819033621" />
   <way id="-106245" action="modify" visible="true">
     <nd ref="3643472776" />
-    <nd ref="118395" />
+    <nd ref="-118395" />
     <tag k="highway" v="primary" />
     <tag k="lanes" v="5" />
     <tag k="maxspeed" v="50" />
@@ -2426,8 +2426,8 @@
   </way>
   <way id="-106833" action="modify" visible="true">
     <nd ref="316801008" />
-    <nd ref="129757" />
-    <nd ref="121069" />
+    <nd ref="-129757" />
+    <nd ref="-121069" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="1" />
     <tag k="maxspeed" v="50" />
@@ -2435,8 +2435,8 @@
     <tag k="oneway" v="yes" />
   </way>
   <way id="-106836" action="modify" visible="true">
-    <nd ref="121073" />
-    <nd ref="121089" />
+    <nd ref="-121073" />
+    <nd ref="-121089" />
     <nd ref="261678744" />
     <tag k="highway" v="unclassified" />
     <tag k="lanes" v="2" />
@@ -2446,8 +2446,8 @@
   </way>
   <way id="-106941" action="modify" visible="true">
     <nd ref="261678744" />
-    <nd ref="123469" />
-    <nd ref="123476" />
+    <nd ref="-123469" />
+    <nd ref="-123476" />
     <nd ref="207435063" />
     <tag k="highway" v="tertiary" />
     <tag k="lanes" v="1" />
@@ -2455,8 +2455,8 @@
     <tag k="oneway" v="yes" />
   </way>
   <way id="-107048" action="modify" visible="true">
-    <nd ref="123539" />
-    <nd ref="123547" />
+    <nd ref="-123539" />
+    <nd ref="-123547" />
     <nd ref="207435063" />
     <tag k="highway" v="tertiary" />
     <tag k="lanes" v="2" />
@@ -2467,8 +2467,8 @@
   </way>
   <way id="-107215" action="modify" visible="true">
     <nd ref="258237436" />
-    <nd ref="123631" />
-    <nd ref="123621" />
+    <nd ref="-123631" />
+    <nd ref="-123621" />
     <tag k="highway" v="unclassified" />
     <tag k="lanes" v="1" />
     <tag k="maxspeed" v="30" />
@@ -2477,8 +2477,8 @@
   </way>
   <way id="-107266" action="modify" visible="true">
     <nd ref="258237434" />
-    <nd ref="123723" />
-    <nd ref="123736" />
+    <nd ref="-123723" />
+    <nd ref="-123736" />
     <nd ref="258237436" />
     <tag k="highway" v="unclassified" />
     <tag k="lanes" v="1" />
@@ -2486,8 +2486,8 @@
     <tag k="oneway" v="yes" />
   </way>
   <way id="-107270" action="modify" visible="true">
-    <nd ref="126084" />
-    <nd ref="126094" />
+    <nd ref="-126084" />
+    <nd ref="-126094" />
     <nd ref="207433776" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="1" />
@@ -2497,8 +2497,8 @@
   </way>
   <way id="-107334" action="modify" visible="true">
     <nd ref="207435069" />
-    <nd ref="126161" />
-    <nd ref="126153" />
+    <nd ref="-126161" />
+    <nd ref="-126153" />
     <nd ref="207433776" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="1" />
@@ -2506,8 +2506,8 @@
     <tag k="oneway" v="yes" />
   </way>
   <way id="-107400" action="modify" visible="true">
-    <nd ref="126180" />
-    <nd ref="126195" />
+    <nd ref="-126180" />
+    <nd ref="-126195" />
     <nd ref="207435069" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="1" />
@@ -2516,8 +2516,8 @@
     <tag k="oneway" v="yes" />
   </way>
   <way id="-107529" action="modify" visible="true">
-    <nd ref="126331" />
-    <nd ref="126337" />
+    <nd ref="-126331" />
+    <nd ref="-126337" />
     <nd ref="207437138" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="1" />
@@ -2527,8 +2527,8 @@
   </way>
   <way id="-107594" action="modify" visible="true">
     <nd ref="236151783" />
-    <nd ref="126428" />
-    <nd ref="126429" />
+    <nd ref="-126428" />
+    <nd ref="-126429" />
     <nd ref="262210524" />
     <tag k="highway" v="primary_link" />
     <tag k="lanes" v="2" />
@@ -2538,8 +2538,8 @@
   </way>
   <way id="-107715" action="modify" visible="true">
     <nd ref="236151807" />
-    <nd ref="126520" />
-    <nd ref="126497" />
+    <nd ref="-126520" />
+    <nd ref="-126497" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="1" />
     <tag k="maxspeed" v="30" />
@@ -2547,8 +2547,8 @@
     <tag k="oneway" v="yes" />
   </way>
   <way id="-107778" action="modify" visible="true">
-    <nd ref="126545" />
-    <nd ref="126546" />
+    <nd ref="-126545" />
+    <nd ref="-126546" />
     <nd ref="266695294" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="1" />
@@ -2558,8 +2558,8 @@
   </way>
   <way id="-107839" action="modify" visible="true">
     <nd ref="226214980" />
-    <nd ref="126623" />
-    <nd ref="126624" />
+    <nd ref="-126623" />
+    <nd ref="-126624" />
     <tag k="highway" v="tertiary" />
     <tag k="lanes" v="1" />
     <tag k="maxspeed" v="30" />
@@ -2568,8 +2568,8 @@
   </way>
   <way id="-107929" action="modify" visible="true">
     <nd ref="226214987" />
-    <nd ref="126688" />
-    <nd ref="126694" />
+    <nd ref="-126688" />
+    <nd ref="-126694" />
     <nd ref="226214980" />
     <tag k="highway" v="tertiary" />
     <tag k="lanes" v="2" />
@@ -2578,8 +2578,8 @@
     <tag k="oneway" v="yes" />
   </way>
   <way id="-108027" action="modify" visible="true">
-    <nd ref="126733" />
-    <nd ref="126734" />
+    <nd ref="-126733" />
+    <nd ref="-126734" />
     <nd ref="226214987" />
     <tag k="highway" v="tertiary" />
     <tag k="lanes" v="2" />
@@ -2590,8 +2590,8 @@
   </way>
   <way id="-108097" action="modify" visible="true">
     <nd ref="207439167" />
-    <nd ref="126806" />
-    <nd ref="126800" />
+    <nd ref="-126806" />
+    <nd ref="-126800" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="1" />
     <tag k="maxspeed" v="30" />
@@ -2599,8 +2599,8 @@
     <tag k="oneway" v="yes" />
   </way>
   <way id="-108245" action="modify" visible="true">
-    <nd ref="126904" />
-    <nd ref="126859" />
+    <nd ref="-126904" />
+    <nd ref="-126859" />
     <tag k="highway" v="primary" />
     <tag k="lanes" v="2" />
     <tag k="maxspeed" v="50" />
@@ -2608,7 +2608,7 @@
     <tag k="oneway" v="yes" />
   </way>
   <way id="-108568" action="modify" visible="true">
-    <nd ref="127230" />
+    <nd ref="-127230" />
     <nd ref="2267756292" />
     <tag k="highway" v="primary" />
     <tag k="lanes" v="3" />
@@ -2619,10 +2619,10 @@
   </way>
   <way id="-108630" action="modify" visible="true">
     <nd ref="2267756292" />
-    <nd ref="127262" />
-    <nd ref="127263" />
-    <nd ref="127264" />
-    <nd ref="127265" />
+    <nd ref="-127262" />
+    <nd ref="-127263" />
+    <nd ref="-127264" />
+    <nd ref="-127265" />
     <nd ref="1798879451" />
     <tag k="highway" v="primary" />
     <tag k="lanes" v="2" />
@@ -2631,8 +2631,8 @@
     <tag k="oneway" v="yes" />
   </way>
   <way id="-108871" action="modify" visible="true">
-    <nd ref="129748" />
-    <nd ref="129749" />
+    <nd ref="-129748" />
+    <nd ref="-129749" />
     <nd ref="316801008" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="2" />
@@ -2643,8 +2643,8 @@
   </way>
   <way id="-108987" action="modify" visible="true">
     <nd ref="316801008" />
-    <nd ref="129786" />
-    <nd ref="129787" />
+    <nd ref="-129786" />
+    <nd ref="-129787" />
     <nd ref="316801000" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="1" />
@@ -2654,8 +2654,8 @@
   </way>
   <way id="-109068" action="modify" visible="true">
     <nd ref="316801000" />
-    <nd ref="129805" />
-    <nd ref="129806" />
+    <nd ref="-129805" />
+    <nd ref="-129806" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="1" />
     <tag k="maxspeed" v="30" />
@@ -2663,8 +2663,8 @@
     <tag k="oneway" v="yes" />
   </way>
   <way id="-109228" action="modify" visible="true">
-    <nd ref="129888" />
-    <nd ref="129889" />
+    <nd ref="-129888" />
+    <nd ref="-129889" />
     <nd ref="251691164" />
     <tag k="highway" v="tertiary" />
     <tag k="lanes" v="1" />
@@ -2675,8 +2675,8 @@
   </way>
   <way id="-109284" action="modify" visible="true">
     <nd ref="251691164" />
-    <nd ref="129893" />
-    <nd ref="129894" />
+    <nd ref="-129893" />
+    <nd ref="-129894" />
     <nd ref="269325450" />
     <tag k="highway" v="tertiary" />
     <tag k="lanes" v="1" />
@@ -2687,8 +2687,8 @@
   </way>
   <way id="-109319" action="modify" visible="true">
     <nd ref="269325450" />
-    <nd ref="129897" />
-    <nd ref="129898" />
+    <nd ref="-129897" />
+    <nd ref="-129898" />
     <tag k="highway" v="tertiary" />
     <tag k="lanes" v="1" />
     <tag k="maxspeed" v="50" />
@@ -3199,7 +3199,7 @@
   </way>
   <way id="23778348" action="modify" visible="true" version="1">
     <nd ref="268800772" />
-    <nd ref="126509" />
+    <nd ref="-126509" />
     <nd ref="236151807" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="1" />
@@ -3212,8 +3212,8 @@
   </way>
   <way id="24157208" action="modify" visible="true" version="1">
     <nd ref="207433776" />
-    <nd ref="126141" />
-    <nd ref="126170" />
+    <nd ref="-126141" />
+    <nd ref="-126170" />
     <nd ref="207435069" />
     <tag k="cycleway" v="no" />
     <tag k="highway" v="residential" />
@@ -3245,7 +3245,7 @@
   </way>
   <way id="24157797" action="modify" visible="true" version="1">
     <nd ref="261678744" />
-    <nd ref="121084" />
+    <nd ref="-121084" />
     <nd ref="288924294" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="2" />
@@ -4477,8 +4477,8 @@
   </way>
   <way id="29326047" action="modify" visible="true" version="1">
     <nd ref="258237436" />
-    <nd ref="123742" />
-    <nd ref="123695" />
+    <nd ref="-123742" />
+    <nd ref="-123695" />
     <nd ref="258237434" />
     <tag k="cycleway" v="no" />
     <tag k="highway" v="residential" />
@@ -4494,7 +4494,7 @@
   </way>
   <way id="29384979" action="modify" visible="true" version="1">
     <nd ref="207435063" />
-    <nd ref="123529" />
+    <nd ref="-123529" />
     <nd ref="2871757072" />
     <tag k="cycleway" v="no" />
     <tag k="highway" v="tertiary" />
@@ -4811,7 +4811,7 @@
   </way>
   <way id="47197017" action="modify" visible="true" version="1">
     <nd ref="1966409069" />
-    <nd ref="129858" />
+    <nd ref="-129858" />
     <nd ref="269325450" />
     <tag k="bicycle" v="use_sidepath" />
     <tag k="highway" v="tertiary" />
@@ -4892,7 +4892,7 @@
   <way id="65372863" action="modify" visible="true" version="1">
     <nd ref="226214980" />
     <nd ref="6322847131" />
-    <nd ref="126664" />
+    <nd ref="-126664" />
     <nd ref="226214987" />
     <tag k="highway" v="tertiary" />
     <tag k="lanes" v="2" />
@@ -4929,7 +4929,7 @@
   <way id="75391389" action="modify" visible="true" version="1">
     <nd ref="269325450" />
     <nd ref="276371934" />
-    <nd ref="129871" />
+    <nd ref="-129871" />
     <nd ref="251691164" />
     <tag k="foot" v="no" />
     <tag k="highway" v="tertiary" />
@@ -5627,7 +5627,7 @@
   </way>
   <way id="120509135" action="modify" visible="true" version="1">
     <nd ref="335606259" />
-    <nd ref="123638" />
+    <nd ref="-123638" />
     <nd ref="258237436" />
     <tag k="cycleway" v="no" />
     <tag k="highway" v="residential" />
@@ -5803,7 +5803,7 @@
   </way>
   <way id="138750246" action="modify" visible="true" version="1">
     <nd ref="251691164" />
-    <nd ref="129878" />
+    <nd ref="-129878" />
     <nd ref="2420233981" />
     <tag k="foot" v="no" />
     <tag k="highway" v="tertiary" />
@@ -8664,7 +8664,7 @@
   <way id="264018795" action="modify" visible="true" version="1">
     <nd ref="278234269" />
     <nd ref="6960167262" />
-    <nd ref="126904" />
+    <nd ref="-126904" />
     <tag k="bus:lanes" v="yes|yes|designated" />
     <tag k="dual_carriageway" v="yes" />
     <tag k="highway" v="primary" />
@@ -8840,7 +8840,7 @@
   </way>
   <way id="277117076" action="modify" visible="true" version="1">
     <nd ref="1876808668" />
-    <nd ref="126868" />
+    <nd ref="-126868" />
     <nd ref="6140231059" />
     <tag k="dual_carriageway" v="yes" />
     <tag k="highway" v="primary" />
@@ -9408,9 +9408,9 @@
   </way>
   <way id="336909779" action="modify" visible="true" version="1">
     <nd ref="3439932293" />
-    <nd ref="118412" />
-    <nd ref="118355" />
-    <nd ref="118345" />
+    <nd ref="-118412" />
+    <nd ref="-118355" />
+    <nd ref="-118345" />
     <nd ref="3643472776" />
     <tag k="highway" v="primary" />
     <tag k="lanes" v="4" />
@@ -9524,9 +9524,9 @@
     <tag k="turn:lanes" v="left|left;through|through|right" />
   </way>
   <way id="359671124" action="modify" visible="true" version="1">
-    <nd ref="118395" />
+    <nd ref="-118395" />
     <nd ref="5352455637" />
-    <nd ref="118346" />
+    <nd ref="-118346" />
     <nd ref="5938809082" />
     <nd ref="2244507478" />
     <nd ref="1453057300" />
@@ -9562,7 +9562,7 @@
     <tag k="surface" v="asphalt" />
   </way>
   <way id="359671126" action="modify" visible="true" version="1">
-    <nd ref="118395" />
+    <nd ref="-118395" />
     <nd ref="4350922166" />
     <nd ref="1453057301" />
     <nd ref="2244507477" />
@@ -9779,7 +9779,7 @@
     <tag k="surface" v="asphalt" />
   </way>
   <way id="372635649" action="modify" visible="true" version="1">
-    <nd ref="126859" />
+    <nd ref="-126859" />
     <nd ref="1169737316" />
     <tag k="dual_carriageway" v="yes" />
     <tag k="highway" v="primary" />
@@ -10147,8 +10147,8 @@
   </way>
   <way id="431445483" action="modify" visible="true" version="1">
     <nd ref="262210524" />
-    <nd ref="126442" />
-    <nd ref="126451" />
+    <nd ref="-126442" />
+    <nd ref="-126451" />
     <nd ref="236151783" />
     <tag k="highway" v="primary_link" />
     <tag k="lanes" v="2" />
@@ -10279,8 +10279,8 @@
   </way>
   <way id="448832521" action="modify" visible="true" version="1">
     <nd ref="207435063" />
-    <nd ref="123443" />
-    <nd ref="123435" />
+    <nd ref="-123443" />
+    <nd ref="-123435" />
     <nd ref="261678744" />
     <tag k="cycleway:both" v="no" />
     <tag k="highway" v="tertiary" />
@@ -10467,7 +10467,7 @@
   </way>
   <way id="497905722" action="modify" visible="true" version="1">
     <nd ref="316800993" />
-    <nd ref="129803" />
+    <nd ref="-129803" />
     <nd ref="316801000" />
     <tag k="highway" v="residential" />
     <tag k="lanes" v="2" />
