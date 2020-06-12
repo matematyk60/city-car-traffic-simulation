@@ -296,40 +296,38 @@ class SimulationManager:
                 self.simulation_counter += 1
                 self.simulation_counter %= 60
 
-            # pygame
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    run = False
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 4 and self.scale < 3:
-                        self.scale *= 1.5
-                        (x, y) = pygame.mouse.get_pos()
-                        self.map_x -= int((x - self.map_x) * 0.5)
-                        self.map_y -= int((y - self.map_y) * 0.5)
+                # pygame
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        run = False
+                    elif event.type == pygame.MOUSEBUTTONDOWN:
+                        if event.button == 4 and self.scale < 3:
+                            self.scale *= 1.5
+                            (x, y) = pygame.mouse.get_pos()
+                            self.map_x -= int((x - self.map_x) * 0.5)
+                            self.map_y -= int((y - self.map_y) * 0.5)
 
-                        self.map_surface = self.draw_map()
-                    elif event.button == 5 and self.scale > 0.07:
-                        self.scale /= 1.5
-                        (x, y) = pygame.mouse.get_pos()
-                        self.map_x -= int((x - self.map_x) * (-1 / 3))
-                        self.map_y -= int((y - self.map_y) * (-1 / 3))
-                        self.map_surface = self.draw_map()
-                    elif event.button == 3:
-                        (dx, dy) = pygame.mouse.get_rel()
-                        sth = True
-                    else:
-                        mouse_pos = pygame.mouse.get_pos()
-                        if not(self.handle_buttons_collisions(mouse_pos) or self.screen.get_at(mouse_pos) == (255,255,255)):
-                            self.handle_way_collisions(mouse_pos)
-                        elif event.type == pygame.MOUSEMOTION and event.buttons[2]:
+                            self.map_surface = self.draw_map()
+                        elif event.button == 5 and self.scale > 0.07:
+                            self.scale /= 1.5
+                            (x, y) = pygame.mouse.get_pos()
+                            self.map_x -= int((x - self.map_x) * (-1 / 3))
+                            self.map_y -= int((y - self.map_y) * (-1 / 3))
+                            self.map_surface = self.draw_map()
+                        elif event.button == 3:
                             (dx, dy) = pygame.mouse.get_rel()
-                            self.map_x += dx
-                            self.map_y += dy
-                        elif event.type == pygame.VIDEORESIZE:
-                            self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+                        else:
+                            mouse_pos = pygame.mouse.get_pos()
+                            if not(self.handle_buttons_collisions(mouse_pos) or self.screen.get_at(mouse_pos) == (255,255,255)):
+                                self.handle_way_collisions(mouse_pos)
+                    elif event.type == pygame.MOUSEMOTION and event.buttons[2]:
+                        (dx, dy) = pygame.mouse.get_rel()
+                        self.map_x += dx
+                        self.map_y += dy
+                    elif event.type == pygame.VIDEORESIZE:
+                        self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
 
                 self.draw()
-            # time.sleep(0.1)
 
         pygame.quit()
         print("end")
