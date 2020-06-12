@@ -5,6 +5,7 @@ class Node:
         self.node_id = node_id
         self.lat = lat
         self.long = long
+        self.passable = True
 
     def __str__(self):
         return f"Node(id={self.node_id}, lat={self.lat}, long={self.long})"

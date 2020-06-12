@@ -82,6 +82,21 @@ class Way:
     def mark_next_occupation(self, lane_number: int, position: int):
         self.next_lane_occupations[lane_number].occupations[position].occupied = True
 
+    def mark_node_occupation(self, node_id: int):
+        if self.begin_node.node_id == node_id:
+            position = 0
+        elif self.end_node.node_id == node_id:
+            position = self.distance - 1
+        else:
+            try:
+                position = int(next(x[0].start for x in self.ranges if (x[1][0].node_id == node_id)))
+            except StopIteration:
+                print(f"Could not find node_id {node_id} in way {self.way_id}] for marking node occupation")
+                pass
+        for lane in self.next_lane_occupations:
+            lane.occupations[position].occupied = True
+
+
     def rewrite_occupations(self):
         self.lane_occupations = self.next_lane_occupations
         self.next_lane_occupations = self.create_occupations()

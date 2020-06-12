@@ -12,6 +12,7 @@ import os
 from random import randint
 from math import atan2, sin, cos, pi
 
+
 class SimulationManager:
 
     def __init__(self):
@@ -35,7 +36,7 @@ class SimulationManager:
         cords_2 = (self.map.minlat, self.map.minlon)
         self.M_HEIGHT = geopy.distance.vincenty(cords_1, cords_2).m
 
-        self.scale = self.S_HEIGHT/ self.M_HEIGHT
+        self.scale = self.S_HEIGHT / self.M_HEIGHT
         self.map_x = 0
         self.map_y = 0
 
@@ -48,8 +49,9 @@ class SimulationManager:
         origin_dict = self.map.origin_dict
         way_dict = self.map.way_dict
         car_list = self.map.cars
+
         positioner = Positioner(way_dict)
-        while(True):
+        while (True):
             for origin in origin_dict.values():
                 origin.try_creating_new_car()
 
@@ -79,16 +81,16 @@ class SimulationManager:
             return (x, y)
         else:
             print(f"({lat}, {long}) is outside the map")
-            return (0,0)
+            return (0, 0)
 
     def is_inside_screen(self, coords):
         return 0 < coords[0] + self.map_x < self.S_WIDTH and 0 < coords[1] + self.map_y < self.S_HEIGHT
 
     def draw_node(self, surface, node, radius):
         coords = self.convert_coords((node.lat, node.long))
-        pygame.draw.circle(surface, (0,0,0), self.convert_coords((node.lat, node.long)), int(radius * self.scale))
+        pygame.draw.circle(surface, (0, 0, 0), self.convert_coords((node.lat, node.long)), int(radius * self.scale))
 
-    def draw_way(self, surface, way):     
+    def draw_way(self, surface, way):
         prev_node = self.convert_coords(way.begin_node.get_coords())
 
         for node in way.intermediate_nodes:
@@ -104,11 +106,11 @@ class SimulationManager:
             coords = self.convert_coords(car.get_coordinates())
             if self.is_inside_screen(coords):
                 (node_before, node_after) = car.between_nodes()
-            
+
                 before_coords = self.convert_coords(node_before.get_coords())
                 after_coords = self.convert_coords(node_after.get_coords())
 
-                angle = atan2(after_coords[1] - before_coords[1], after_coords[0] - before_coords[0]) + pi/2
+                angle = atan2(after_coords[1] - before_coords[1], after_coords[0] - before_coords[0]) + pi / 2
 
                 lanes = car.current_lane
                 way_lanes = car.current_way.lanes
@@ -120,7 +122,7 @@ class SimulationManager:
 
     def draw_map(self):
         map_surface = pygame.Surface((self.scale * self.M_WIDTH, self.scale * self.M_HEIGHT))
-        map_surface.fill((255,255,255))
+        map_surface.fill((255, 255, 255))
 
         for way in self.map.way_dict.values():
             self.draw_way(map_surface, way)
@@ -132,7 +134,7 @@ class SimulationManager:
             button.draw(self.screen)
 
     def draw(self):
-        self.screen.fill((255,255,255))
+        self.screen.fill((255, 255, 255))
         self.screen.blit(self.map_surface, (self.map_x, self.map_y))
         self.draw_cars(self.map_surface)
         self.draw_menu()
@@ -146,7 +148,7 @@ class SimulationManager:
         buttons.append(Button(self.S_WIDTH - 35, 10, 25, 25, '+', True, self.increase_spawning_chance))
         buttons.append(Button(self.S_WIDTH - 310, 40, 200, 25, 'Number of cars:', False))
         buttons.append(Button(self.S_WIDTH - 105, 40, 95, 25, '0', False))
-        
+
         return buttons
 
     def handle_buttons_collisions(self, mouse_pos):
@@ -173,18 +175,18 @@ class SimulationManager:
         for origin in self.map.origin_dict.values():
             origin.set_chance(val)
 
-
     def run(self):
         node_dict = self.map.node_dict
         origin_dict = self.map.origin_dict
         way_dict = self.map.way_dict
         car_list = self.map.cars
+        traffic_lights = self.map.traffic_lights
         positioner = Positioner(way_dict)
         time_stmap = time.time()
 
         self.update_buttons()
         self.draw()
-        
+
         run = True
         while run:
             # simulation
@@ -192,10 +194,13 @@ class SimulationManager:
                 for origin in origin_dict.values():
                     origin.try_creating_new_car()
 
+                for traffic_light in traffic_lights:
+                    traffic_light.make_a_move()
+
                 for car in car_list:
                     car.make_a_move(positioner)
                     if car.reached_destination():
-                        #print(f"Car [{car}] reached destination ! removing from car list...")
+                        # print(f"Car [{car}] reached destination ! removing from car list...")
                         car_list.remove(car)
                     else:
                         pass
@@ -205,9 +210,8 @@ class SimulationManager:
                 for way in way_dict.values():
                     way.rewrite_occupations()
 
-                
                 self.update_buttons()
-                
+
                 time_stmap = time.time()
 
             # pygame
@@ -220,13 +224,13 @@ class SimulationManager:
                         (x, y) = pygame.mouse.get_pos()
                         self.map_x -= int((x - self.map_x) * 0.5)
                         self.map_y -= int((y - self.map_y) * 0.5)
-                        
+
                         self.map_surface = self.draw_map()
                     elif event.button == 5 and self.scale > 0.07:
                         self.scale /= 1.5
                         (x, y) = pygame.mouse.get_pos()
-                        self.map_x -= int((x - self.map_x) * (-1/3))
-                        self.map_y -= int((y - self.map_y) * (-1/3))
+                        self.map_x -= int((x - self.map_x) * (-1 / 3))
+                        self.map_y -= int((y - self.map_y) * (-1 / 3))
                         self.map_surface = self.draw_map()
                     elif event.button == 3:
                         (dx, dy) = pygame.mouse.get_rel()
@@ -241,7 +245,7 @@ class SimulationManager:
                     self.screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
 
             self.draw()
-            #time.sleep(0.1)
+            # time.sleep(0.1)
 
         pygame.quit()
         print("end")

@@ -24,7 +24,7 @@ class Origin:
             term = terms[term_number]
             car = Car(current_way=self.origin_way, current_lane=0, directions_map=self.directions_map[term],
                       way_position=0,
-                      destination_node_id=term, v=0, v_max=20, acc=10)
+                      destination_node_id=term, v=0, v_max=5, acc=1)
             self.car_queue.append(car)
         self.try_introducing_new_car()
 
