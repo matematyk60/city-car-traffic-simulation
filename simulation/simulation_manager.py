@@ -205,12 +205,14 @@ class SimulationManager:
         return buttons
 
     def update_menu(self):
-        self.buttons[5] = Button(self.S_WIDTH - 310, 100, 200, 25, f'Number of cars on {self.selected}:', False)
-        self.buttons['selection_car_number'] = Button(self.S_WIDTH - 105, 100, 95, 25, '0', False)
-        self.buttons[6] = Button(self.S_WIDTH - 310, 130, 200, 25, f'Average speed of {self.selected}:', False)
-        self.buttons['selection_speed'] = Button(self.S_WIDTH - 105, 130, 95, 25, '0', False)
-        self.buttons[7] = Button(self.S_WIDTH - 310, 160, 200, 25, f'Flow of {self.selected}:', False)
-        self.buttons['selection_flow'] = Button(self.S_WIDTH - 105, 160, 95, 25, '0', False)
+        self.buttons[5] = Button(self.S_WIDTH - 310, 100, 300, 25, f'Statistics for:', False)
+        self.buttons[6] = Button(self.S_WIDTH - 310, 130, 300, 25, self.map.way_dict[self.selected].name, False)
+        self.buttons[7] = Button(self.S_WIDTH - 310, 160, 200, 25, f'Number of cars:', False)
+        self.buttons['selection_car_number'] = Button(self.S_WIDTH - 105, 160, 95, 25, '0', False)
+        self.buttons[8] = Button(self.S_WIDTH - 310, 190, 200, 25, f'Average speed:', False)
+        self.buttons['selection_speed'] = Button(self.S_WIDTH - 105, 190, 95, 25, '0', False)
+        self.buttons[9] = Button(self.S_WIDTH - 310, 220, 200, 25, f'Flow:', False)
+        self.buttons['selection_flow'] = Button(self.S_WIDTH - 105, 220, 95, 25, '0', False)
 
     def calculate_distance(self, p, q, r):
         a = q[0] - p[0]

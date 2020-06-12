@@ -21,7 +21,7 @@ class LaneOccupation:
 
 class Way:
     def __init__(self, way_id: int, begin_node: TraversableNode, end_node: TraversableNode, lanes: int,
-                 intermediate_nodes: List[Node]):
+                 intermediate_nodes: List[Node], name: str, max_speed: int):
         self.way_id = way_id
         self.begin_node = begin_node
         self.end_node = end_node
@@ -33,6 +33,8 @@ class Way:
         self.lane_occupations = self.create_occupations()
         self.next_lane_occupations = self.create_occupations()
         self.color = (0, 0, 0)
+        self.name = name
+        self.max_speed = max_speed
 
     def instantiate_nodes(self):
         previous_node = self.begin_node

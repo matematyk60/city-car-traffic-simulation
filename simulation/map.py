@@ -40,6 +40,16 @@ class Map:
             except StopIteration:
                 lanes = 1
 
+            try:
+                name = next(tag.get("v") for tag in way.findall("tag") if tag.get("k") == "name")
+            except StopIteration:
+                name = 'Brak nazwy ulicy'
+
+            try:
+                max_speed = next(int(tag.get("v")) for tag in way.findall("tag") if tag.get("k") == "maxspeed")
+            except StopIteration:
+                name = 'Brak nazwy ulicy'
+
             # some ways have just one node (or none), we ignore them
             # to do: remove them from obwodnica.osm
             try:
@@ -56,7 +66,7 @@ class Map:
                 intermediate_nodes.append(self.node_dict[node_id])
 
             self.way_dict[way_id] = Way(way_id, self.node_dict[begining_id], self.node_dict[end_id], lanes,
-                                        intermediate_nodes)
+                                        intermediate_nodes, name, max_speed)
             self.node_dict[begining_id].add_outgoing_way(self.way_dict[way_id])
 
         for node in root.findall('node'):
