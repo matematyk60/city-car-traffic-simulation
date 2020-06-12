@@ -137,8 +137,56 @@ class SimulationManager:
         for button in self.buttons.values():
             button.draw(self.screen)
 
+    def draw_traffic_lights(self, surface):
+        for traffic_lights in self.map.traffic_lights:
+            greens = traffic_lights.get_green_lights()
+            reds = traffic_lights.get_red_lights()
+
+            for tl in greens:
+                node = tl.node
+                coords = self.convert_coords(node.get_coords())
+
+                if self.is_inside_screen(coords):
+                    way = tl.ways[0]
+                    nodepair = next(x[1] for x in way.ranges if (x[1][0] == node or x[1][1] == node))
+                    if nodepair[0] == node: 
+                        node_before = nodepair[1] 
+                    else:
+                        node_before = nodepair[0]
+                    before_coords = self.convert_coords(node_before.get_coords())
+
+                    angle = atan2(coords[1] - before_coords[1], coords[0] - before_coords[0]) + pi / 2
+
+                    distance = self.scale * 10
+                    x = int(coords[0] + cos(angle) * distance)
+                    y = int(coords[1] + sin(angle) * distance)
+
+                    pygame.draw.circle(surface, (0, 255, 0), (x, y), int(4 * self.scale))
+
+            for tl in reds:
+                node = tl.node
+                coords = self.convert_coords(node.get_coords())
+
+                if self.is_inside_screen(coords):
+                    way = tl.ways[0]
+                    nodepair = next(x[1] for x in way.ranges if (x[1][0] == node or x[1][1] == node))
+                    if nodepair[0] == node: 
+                        node_before = nodepair[1] 
+                    else:
+                        node_before = nodepair[0]
+                    before_coords = self.convert_coords(node_before.get_coords())
+
+                    angle = atan2(coords[1] - before_coords[1], coords[0] - before_coords[0]) + pi / 2
+
+                    distance = self.scale * 10
+                    x = int(coords[0] + cos(angle) * distance)
+                    y = int(coords[1] + sin(angle) * distance)
+
+                    pygame.draw.circle(surface, (255, 0, 0), (x, y), int(4 * self.scale))
+
     def draw(self):
         self.screen.fill((255, 255, 255))
+        self.draw_traffic_lights(self.map_surface)
         self.screen.blit(self.map_surface, (self.map_x, self.map_y))
         self.draw_cars(self.map_surface)
         self.draw_menu()
@@ -316,7 +364,7 @@ class SimulationManager:
                             self.map_surface = self.draw_map()
                         elif event.button == 3:
                             (dx, dy) = pygame.mouse.get_rel()
-                        else:
+                        elif event.button == 1:
                             mouse_pos = pygame.mouse.get_pos()
                             if not(self.handle_buttons_collisions(mouse_pos) or self.screen.get_at(mouse_pos) == (255,255,255)):
                                 self.handle_way_collisions(mouse_pos)

@@ -14,6 +14,12 @@ class TrafficLights:
 class TrafficLightsManager:
     def make_a_move(self):
         pass
+    
+    def get_green_lights(self):
+        pass
+
+    def get_red_lights(self):
+        pass
 
 
 class TwoWayTrafficLightsManager(TrafficLightsManager):
@@ -48,6 +54,18 @@ class TwoWayTrafficLightsManager(TrafficLightsManager):
             for way in light.ways:
                 way.mark_node_occupation(light.node.node_id)
         self.counter += 1
+    
+    def get_green_lights(self):
+        if self.current_direction:
+            return self.y_direction_lights
+        else:
+            return self.x_direction_lights
+
+    def get_red_lights(self):
+        if self.current_direction:
+            return self.x_direction_lights
+        else:
+            return self.y_direction_lights
 
 
 class ThreeWayTrafficLightsManager(TrafficLightsManager):
@@ -100,3 +118,19 @@ class ThreeWayTrafficLightsManager(TrafficLightsManager):
 
     def not_in(self, should_be_not_in, lights):
         return filter(lambda l: l.node.node_id not in map(lambda l_: l_.node.node_id, should_be_not_in), lights)
+
+    def get_green_lights(self):
+        if self.current_direction == 0:
+            return self.x_direction_lights
+        elif self.current_direction == 1:
+            return self.y_direction_lights
+        else:
+            return self.z_direction_lights
+
+    def get_red_lights(self):
+        if self.current_direction == 0:
+            return self.y_direction_lights + self.z_direction_lights
+        elif self.current_direction == 1:
+            return self.z_direction_lights + self.x_direction_lights
+        else:
+            return self.y_direction_lights + self.x_direction_lights
