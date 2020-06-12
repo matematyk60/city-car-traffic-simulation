@@ -116,6 +116,10 @@
   <node id='-129902' action='modify' visible='true' lat='50.06607300456' lon='19.92349359272'>
     <tag k='edge' v='origin' />
   </node>
+  <node id='-129907' action='modify' visible='true' lat='50.06585211576' lon='19.92441417317' />
+  <node id='-129922' action='modify' visible='true' lat='50.06581966661' lon='19.92439955596' />
+  <node id='-129924' action='modify' visible='true' lat='50.06580479902' lon='19.92443649955' />
+  <node id='-129925' action='modify' visible='true' lat='50.06582239194' lon='19.9244285819' />
   <node id='31349956' visible='true' version='1' lat='50.0739722' lon='19.9456648' />
   <node id='31349957' visible='true' version='1' lat='50.0732702' lon='19.943999' />
   <node id='31349961' visible='true' version='1' lat='50.0732855' lon='19.9326913' />
@@ -1578,7 +1582,7 @@
   <node id='1798898457' visible='true' version='1' lat='50.0710337' lon='19.9289079'>
     <tag k='highway' v='traffic_signals' />
   </node>
-  <node id='1875729775' visible='true' version='1' lat='50.0658134' lon='19.9244298' />
+  <node id='1875729775' action='modify' visible='true' version='1' lat='50.06581261809' lon='19.92443162715' />
   <node id='1876808668' visible='true' version='1' lat='50.055126' lon='19.9275096'>
     <tag k='highway' v='traffic_signals' />
   </node>
@@ -3130,7 +3134,7 @@
     <tag k='surface' v='asphalt' />
     <tag k='unsigned_ref' v='2259K' />
   </way>
-  <way id='21931182' visible='true' version='1'>
+  <way id='21931182' action='modify' visible='true' version='1'>
     <nd ref='236150723' />
     <nd ref='5331206463' />
     <nd ref='7161289338' />
@@ -3138,7 +3142,7 @@
     <nd ref='236150458' />
     <nd ref='236160046' />
     <nd ref='1448506735' />
-    <nd ref='1875729775' />
+    <nd ref='-129924' />
     <tag k='destination' v='Warszawa;Katowice' />
     <tag k='destination:ref' v='A4' />
     <tag k='destination:symbol' v='motorway;airport' />
@@ -6690,8 +6694,9 @@
     <tag k='source:maxspeed' v='sign' />
     <tag k='surface' v='asphalt' />
   </way>
-  <way id='200654867' visible='true' version='1'>
+  <way id='200654867' action='modify' visible='true' version='1'>
     <nd ref='2106196385' />
+    <nd ref='-129922' />
     <nd ref='1875729775' />
     <tag k='dual_carriageway' v='yes' />
     <tag k='highway' v='secondary' />
@@ -10210,8 +10215,10 @@
     <tag k='surface' v='asphalt' />
     <tag k='turn:lanes' v='through|through|right' />
   </way>
-  <way id='431445486' visible='true' version='1'>
-    <nd ref='1875729775' />
+  <way id='431445486' action='modify' visible='true' version='1'>
+    <nd ref='-129924' />
+    <nd ref='-129925' />
+    <nd ref='-129907' />
     <nd ref='236313351' />
     <tag k='dual_carriageway' v='yes' />
     <tag k='foot' v='no' />
