@@ -88,11 +88,29 @@ class Map:
                 origin_directions_map[node] = directions
             origin.add_directions_map(origin_directions_map)
         self.traffic_lights = [
-            self.create_three_way_traffic_lights(x_nodes_ids=[1798870688, 1798870692], y_nodes_ids=[272305554], z_nodes_ids=[1798870686]), #R.Mogilskie
-            self.create_two_way_traffic_lights(x_nodes_ids=[2070095601], y_nodes_ids=[207460778], x_duration=50, y_duration=10), #M. Konopnickiej
-            self.create_zwierzyniecka_lights(), #Zwierzyniecka
-            self.create_three_way_traffic_lights(x_nodes_ids=[1798872942, 1798872935], y_nodes_ids=[1798872941], z_nodes_ids=[-126734]), #Focha
-            self.create_reymonta_lights() #
+            self.create_three_way_traffic_lights(x_nodes_ids=[1798870688, 1798870692], y_nodes_ids=[272305554],
+                                                 z_nodes_ids=[1798870686]),
+            # R.Mogilskie
+            self.create_two_way_traffic_lights(x_nodes_ids=[2070095601], y_nodes_ids=[207460778], x_duration=50,
+                                               y_duration=10),
+            # M. Konopnickiej
+            self.create_zwierzyniecka_lights(),  # Zwierzyniecka
+            self.create_three_way_traffic_lights(x_nodes_ids=[1798872942, 1798872935], y_nodes_ids=[1798872941],
+                                                 z_nodes_ids=[-126734]),
+            # Focha
+            self.create_reymonta_lights(),
+            self.create_three_way_traffic_lights(x_nodes_ids=[1798898144, 1448506739],
+                                                 y_nodes_ids=[1448506737, 236160046, 1798898144],
+                                                 z_nodes_ids=[-126337, 5331206462, 1448506737]),  # czarnowiejska
+            self.create_two_way_traffic_lights(x_nodes_ids=[2264896425], y_nodes_ids=[269325575], x_duration=30,
+                                               y_duration=30),
+            # al. 29 listopada
+            self.create_rakowicka_lights(),
+            self.create_mogilskie_lights(),
+            self.create_three_way_traffic_lights(x_nodes_ids=[311337240, 595751022],
+                                                 y_nodes_ids=[595751016],
+                                                 z_nodes_ids=[595751038]),  # grzegorzeckie
+
         ]
 
         print(len(self.way_dict))
@@ -100,24 +118,36 @@ class Map:
         print(len(self.node_dict))
 
     def create_zwierzyniecka_lights(self):
-        x_lights = [TrafficLights(self.node_dict[2419720318], [self.way_dict[277117067], self.way_dict[126106951], self.way_dict[101322354]]),
-                    TrafficLights(self.node_dict[1876808668], [self.way_dict[277117076], self.way_dict[126106951], self.way_dict[255472409]]),
-                    TrafficLights(self.node_dict[1169737316], [self.way_dict[372635649], self.way_dict[101322361], self.way_dict[204041393]]),
-                    TrafficLights(self.node_dict[207440039], [self.way_dict[204041393], self.way_dict[126106953], self.way_dict[29325724]])]
+        x_lights = [TrafficLights(self.node_dict[2419720318],
+                                  [self.way_dict[277117067], self.way_dict[126106951], self.way_dict[101322354]]),
+                    TrafficLights(self.node_dict[1876808668],
+                                  [self.way_dict[277117076], self.way_dict[126106951], self.way_dict[255472409]]),
+                    TrafficLights(self.node_dict[1169737316],
+                                  [self.way_dict[372635649], self.way_dict[101322361], self.way_dict[204041393]]),
+                    TrafficLights(self.node_dict[207440039],
+                                  [self.way_dict[204041393], self.way_dict[126106953], self.way_dict[29325724]])]
 
-        y_lights = [TrafficLights(self.node_dict[207440039], [self.way_dict[216987196], self.way_dict[126106953], self.way_dict[29325724]]),
-                    TrafficLights(self.node_dict[2419720318], [self.way_dict[29325724], self.way_dict[101322354], self.way_dict[126106951]]),
-                    TrafficLights(self.node_dict[1876808668], [self.way_dict[126106951], self.way_dict[277117076], self.way_dict[255472409]])]
+        y_lights = [TrafficLights(self.node_dict[207440039],
+                                  [self.way_dict[216987196], self.way_dict[126106953], self.way_dict[29325724]]),
+                    TrafficLights(self.node_dict[2419720318],
+                                  [self.way_dict[29325724], self.way_dict[101322354], self.way_dict[126106951]]),
+                    TrafficLights(self.node_dict[1876808668],
+                                  [self.way_dict[126106951], self.way_dict[277117076], self.way_dict[255472409]])]
 
-        z_lights = [TrafficLights(self.node_dict[1876808668], [self.way_dict[216988890], self.way_dict[277117076], self.way_dict[255472409]]),
-                    TrafficLights(self.node_dict[1169737316], [self.way_dict[255472409], self.way_dict[101322361], self.way_dict[204041393]]),
-                    TrafficLights(self.node_dict[207440039], [self.way_dict[204041393], self.way_dict[126106953], self.way_dict[29325724]])]
+        z_lights = [TrafficLights(self.node_dict[1876808668],
+                                  [self.way_dict[216988890], self.way_dict[277117076], self.way_dict[255472409]]),
+                    TrafficLights(self.node_dict[1169737316],
+                                  [self.way_dict[255472409], self.way_dict[101322361], self.way_dict[204041393]]),
+                    TrafficLights(self.node_dict[207440039],
+                                  [self.way_dict[204041393], self.way_dict[126106953], self.way_dict[29325724]])]
 
         return ThreeWayTrafficLightsManager(x_lights, y_lights, z_lights)
 
     def create_reymonta_lights(self):
-        x_lights = [TrafficLights(self.node_dict[262210524], [self.way_dict[431445485], self.way_dict[431516755], self.way_dict[431445483]]),
-                    TrafficLights(self.node_dict[236151783], [self.way_dict[118304895], self.way_dict[277117078], self.way_dict[-107594]])]
+        x_lights = [TrafficLights(self.node_dict[262210524],
+                                  [self.way_dict[431445485], self.way_dict[431516755], self.way_dict[431445483]]),
+                    TrafficLights(self.node_dict[236151783],
+                                  [self.way_dict[118304895], self.way_dict[277117078], self.way_dict[-107594]])]
 
         y_lights = [TrafficLights(self.node_dict[262210524],
                                   [self.way_dict[240869998], self.way_dict[431445483], self.way_dict[431516755]]),
@@ -128,6 +158,61 @@ class Map:
                                   [self.way_dict[-107594], self.way_dict[29325983], self.way_dict[431516755]]),
                     TrafficLights(self.node_dict[236151783],
                                   [self.way_dict[277117078], self.way_dict[118304895], self.way_dict[-107594]])]
+
+        return ThreeWayTrafficLightsManager(x_lights, y_lights, z_lights)
+
+    def create_rakowicka_lights(self):
+        x_lights = [TrafficLights(self.node_dict[269325450],
+                                  [self.way_dict[217178032], self.way_dict[24787452], self.way_dict[75391389]]),
+                    TrafficLights(self.node_dict[251691164],
+                                  [self.way_dict[114324807], self.way_dict[24787450], self.way_dict[-109284]])]
+
+        y_lights = [TrafficLights(self.node_dict[269325450],
+                                  [self.way_dict[47197017], self.way_dict[75391389], self.way_dict[24787452],
+                                   self.way_dict[-109284], self.way_dict[-109319]]),
+                    TrafficLights(self.node_dict[251691164],
+                                  [self.way_dict[75391389], self.way_dict[138750246], self.way_dict[24787450]])]
+
+        z_lights = [TrafficLights(self.node_dict[269325450],
+                                  [self.way_dict[-109284], self.way_dict[24787452], self.way_dict[-109319]]),
+                    TrafficLights(self.node_dict[251691164],
+                                  [self.way_dict[-109228], self.way_dict[-109284], self.way_dict[24787450]])]
+
+        return ThreeWayTrafficLightsManager(x_lights, y_lights, z_lights)
+
+    def create_mogilskie_lights(self):
+        x_lights = [TrafficLights(self.node_dict[226020630],
+                                  [self.way_dict[242917513], self.way_dict[114324811]]),
+                    TrafficLights(self.node_dict[206371898],
+                                  [self.way_dict[217406135], self.way_dict[187685308], self.way_dict[19803399]]),
+                    TrafficLights(self.node_dict[206371894],
+                                  [self.way_dict[180640939], self.way_dict[82749515]]),
+                    TrafficLights(self.node_dict[262504277],
+                                  [self.way_dict[180640933], self.way_dict[217162193]]),
+                    TrafficLights(self.node_dict[206371912],
+                                  [self.way_dict[533275337], self.way_dict[37828460]])]
+
+        y_lights = [TrafficLights(self.node_dict[226020630],
+                                  [self.way_dict[37828459], self.way_dict[114324811]]),
+                    TrafficLights(self.node_dict[206371898],
+                                  [self.way_dict[217162188], self.way_dict[187685308], self.way_dict[19803399]]),
+                    TrafficLights(self.node_dict[206371894],
+                                  [self.way_dict[368152910], self.way_dict[82749515]]),
+                    TrafficLights(self.node_dict[262504277],
+                                  [self.way_dict[306884065], self.way_dict[217162193]]),
+                    TrafficLights(self.node_dict[206371912],
+                                  [self.way_dict[533275337], self.way_dict[37828460]])]
+
+        z_lights = [TrafficLights(self.node_dict[226020630],
+                                  [self.way_dict[242917513], self.way_dict[114324811]]),
+                    TrafficLights(self.node_dict[206371898],
+                                  [self.way_dict[217406135], self.way_dict[187685308], self.way_dict[19803399]]),
+                    TrafficLights(self.node_dict[206371894],
+                                  [self.way_dict[180640939], self.way_dict[82749515]]),
+                    TrafficLights(self.node_dict[262504277],
+                                  [self.way_dict[217162193]]),
+                    TrafficLights(self.node_dict[206371912],
+                                  [self.way_dict[368325413], self.way_dict[37828460]])]
 
         return ThreeWayTrafficLightsManager(x_lights, y_lights, z_lights)
 
