@@ -34,7 +34,7 @@ class Positioner:
         travelled_distance = 0
         if current_lane > 0:
             r_current_way = position_request.current_way
-            r_current_position = position_request.current_position
+            r_current_position = position_request.current_position - 1
             r_current_lane = position_request.current_lane_number - 1
             r_speed = position_request.speed * 3
             r_should_travel_to_next_way = True
@@ -158,7 +158,7 @@ class Positioner:
                     l_collisioned = True
                     l_should_travel_to_next_way = False
 
-        if current_lane > 0 and not r_collisioned and r_travelled_distance != 0:
+        if current_lane > 0 and (not r_collisioned or travelled_distance == 0) and r_travelled_distance != 0:
             return PositionResponse(
                 next_way=current_way,
                 next_position=current_position,
